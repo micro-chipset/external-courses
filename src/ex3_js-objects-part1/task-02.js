@@ -1,8 +1,8 @@
 "use strict"
 
 function displayObject(object) {
-    if (typeof (object) === 'object') {
-        for (let key in object) {
+    for (let key in object) {
+        if ({}.hasOwnProperty.call(object, key)) {
             console.log(`${key}: ${object[key]}`);
         }
     }
