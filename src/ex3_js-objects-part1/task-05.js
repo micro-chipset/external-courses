@@ -3,7 +3,9 @@
 function copyObject(object) {
     let clone = {};
     for (let key in object) {
-        clone[key] = object[key];
+        if ({}.hasOwnProperty.call(object, key)) {
+            clone[key] = object[key];
+        }
     }
     return clone;
 }
