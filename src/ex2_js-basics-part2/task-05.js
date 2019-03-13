@@ -1,9 +1,10 @@
 "use strict";
 
-function maxItemArray (array) {
-    function compareNumeric (a, b) {
-        return a - b;
-    }
+function compareNumeric(a, b) {
+    return a - b;
+}
+
+function maxItemArray(array) {
     array.sort(compareNumeric);
     return array[array.length - 1];
 }

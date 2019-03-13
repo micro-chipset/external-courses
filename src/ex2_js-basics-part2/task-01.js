@@ -1,4 +1,4 @@
-module.exports = determineType;
+"use strict";
 
 function determineType(argument) {
     switch (typeof (argument)) {
@@ -10,3 +10,5 @@ function determineType(argument) {
             return undefined;
     }
 }
+
+module.exports = determineType;
