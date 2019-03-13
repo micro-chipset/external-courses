@@ -1,12 +1,14 @@
 "use strict";
 
-function compareNumeric(a, b) {
-    return a - b;
-}
-
 function maxItemArray(array) {
-    array.sort(compareNumeric);
-    return array[array.length - 1];
+    let max = array[0];
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    return max;
 }
 
 module.exports = maxItemArray;
