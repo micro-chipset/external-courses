@@ -1,11 +1,7 @@
 "use strict"
 
-function findStringInObject (string, object) {
-    let result = false;
-    for (let key in object) {
-        if (string === key) result = true;
-    }
-    return result;
+function findStringInObject(string, object) {
+    return string in object;
 }
 
 module.exports = findStringInObject;
