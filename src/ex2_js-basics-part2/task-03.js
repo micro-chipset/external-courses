@@ -1,9 +1,7 @@
 "use strict";
 
 function countEvenOdd(array) {
-    let countEven = 0;
-    let countOdd = 0;
-    let countNull = 0;
+    let countEven = 0, countOdd = 0, countNull = 0;
 
     for (let i = 0; i < array.length; i++) {
         if (typeof (array[i]) === 'number') {
