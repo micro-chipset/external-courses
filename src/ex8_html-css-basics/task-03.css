@@ -1,0 +1,53 @@
+div {
+    width: 400px;
+    margin: 20px;
+    padding: 20px;
+    background: gray;
+}
+
+.way1 {
+    border: 3px solid red;
+}
+
+.way2 {
+    outline: 3px solid red;
+}
+
+.way3 {
+    box-shadow: 0 0 0 3px red;
+}
+
+.way4 {
+    border-color: red;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.way5 {
+    position: relative;
+}
+
+.way5::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    bottom: -3px;
+    left: -3px;
+    background: red;
+    z-index: 0;
+}
+
+.way5::after {
+    content: 'Способ 5';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    background: gray;
+    z-index: 1;
+}
