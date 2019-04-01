@@ -1,0 +1,97 @@
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 5px;
+}
+
+hr {
+    height: 2px;
+    background: black;
+    border: none;
+}
+
+form {
+    padding: 5px;
+}
+
+.form-hint {
+    color: red;
+    margin: 5px;
+}
+
+form label {
+    display: block;
+}
+
+.form-field-header {
+    display: inline-block;
+    width: 100px;
+}
+
+.form-field-header {
+    vertical-align: top;
+    margin: 8px 0;
+}
+
+input, textarea {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 8px 0;
+}
+
+textarea {
+    resize: none;
+}
+
+input {
+    width: 200px;
+}
+
+textarea {
+    width: 230px;
+    height: 60px;
+}
+
+button {
+    margin: 10px 0 0 75px;
+    font-weight: 600;
+    border: 1px solid #8c8c8c;
+    border-radius: 5px;
+    padding: 5px 25px;
+    background: linear-gradient(#f2f2f2, #f0f0f0);
+}
+
+.form-field-error {
+    display: inline-block;
+    position: relative;
+    min-width: 100px;
+    margin: 0 0 0 50px;
+    padding: 3px 8px;
+    color: #fff;
+    background: red;
+    opacity: 1;
+}
+
+.form-field-error::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: -12px;
+    border: 6px solid transparent;
+    border-right: 6px solid red;
+    opacity: 1;
+}
+
+input:valid+.form-field-error {
+    opacity: 0;
+    transition: opacity;
+}

@@ -1,0 +1,39 @@
+div {
+    width: 200px;
+    height: 200px;
+    background-color: rgb(96, 184, 141);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.first {
+    box-shadow: 5px 5px 0 rgb(144, 205, 175), 10px 10px 0 rgb(191, 227, 209);
+}
+
+.second::after, .second::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.second::after {
+    background: rgb(144, 205, 175);
+    top: 5px;
+    left: 5px;
+}
+
+.second::before {
+    background: rgb(191, 227, 209);
+    top: 10px;
+    left: 10px;
+}
+
+.third {
+    padding: 5px 0 0 5px;
+}
+
+.third>div {
+    opacity: 0.6;
+}
