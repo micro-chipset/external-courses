@@ -1,0 +1,95 @@
+.wrapper {
+    width: 50vw;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.load {
+    margin: 0 auto;
+    width: 25px;
+    height: 25px;
+    border: 5px solid #ccffcc;
+    border-top-color: rgb(0, 255, 0);
+    border-radius: 100%;
+    animation: load linear .8s infinite;
+}
+
+@keyframes load {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.block {
+    float: left;
+    width: 30px;
+    height: 100px;
+    background-color: black;
+}
+
+.block:last-child {
+    float: right;
+}
+
+.ball {
+    float: left;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 100%;
+    margin: 35px 0 35px 0%;
+    animation: ball 2s linear alternate infinite;
+}
+
+@keyframes ball {
+    0% {
+        margin: 35px 0 35px 0%;
+    }
+    100% {
+        margin: 35px 0 35px calc(100% - 90px);
+    }
+}
+
+.animation {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 50px auto;
+    background: linear-gradient(rgb(200, 200, 200), rgb(140, 50, 100), rgb(185, 130, 144), rgb(255, 0, 64));
+    overflow: hidden;
+    border-radius: 50%;
+    animation: animation 10s linear infinite;
+}
+
+@keyframes animation {
+    0% {
+        background: linear-gradient(rgba(200, 200, 200, 0.8), rgba(140, 50, 100, 0.8), rgba(185, 130, 144, 0.8), rgba(255, 0, 64, 0.8));
+        border-radius: 50%;
+        transform: scale(1, 1) rotate(0deg);
+    }
+    20% {
+        background: linear-gradient(rgba(200, 200, 200, 0.8), rgba(140, 50, 100, 0.8), rgba(185, 130, 144, 0.8), rgba(255, 0, 64, 0.8));
+        border-radius: 0%;
+        transform: scale(1, 1) rotate(0deg);
+    }
+    40% {
+        background: linear-gradient(rgba(104, 114, 110, 0.8), rgba(54, 116, 91, 0.8), rgba(20, 80, 120, 0.8), rgba(0, 153, 255, 0.8));
+        border-radius: 0%;
+        transform: scale(1, 1) rotate(0deg);
+    }
+    60% {
+        background: linear-gradient(rgba(104, 114, 110, 0.8), rgba(54, 116, 91, 0.8), rgba(20, 80, 120, 0.8), rgba(0, 153, 255, 0.8));
+        border-radius: 0%;
+        transform: scale(1.8, 0.9) rotate(0deg);
+    }
+    80% {
+        background: linear-gradient(rgba(104, 114, 110, 0.8), rgba(54, 116, 91, 0.8), rgba(20, 80, 120, 0.8), rgba(0, 153, 255, 0.8));
+        border-radius: 0%;
+        transform: scale(1.8, 0.9) rotate(360deg);
+    }
+    100% {
+        background: linear-gradient(rgba(44, 40, 41, 0.8), rgba(14, 211, 63, 0.8), rgba(4, 21, 32, 0.8), rgba(218, 73, 15, 0.8));
+        border-radius: 50%;
+        transform: scale(1, 1) rotate(0deg);
+    }
+}
