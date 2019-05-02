@@ -10,22 +10,26 @@ let calculator = {
         return this;
     },
 
+    __isNumber(number) {
+        return typeof number === "number" && !isNaN(number)
+    },
+
     subtract: function (number = 0) {
-        if (typeof number === "number" && !isNaN(number)) {
+        if (this.__isNumber(number)) {
             this.result -= number;
         }
         return this;
     },
 
     divide: function (number = 1) {
-        if (typeof number === "number" && !isNaN(number)) {
+        if (this.__isNumber(number)) {
             this.result /= number;
         }
         return this;
     },
 
     multiply: function (number = 1) {
-        if (typeof number === "number" && !isNaN(number)) {
+        if (this.__isNumber(number)) {
             this.result *= number;
         }
         return this;
@@ -40,7 +44,9 @@ let calculator = {
         return this;            
     }, 
     setState: function (number = 0) {
-        this.result = number;
+        if (this.__isNumber(number)) {
+            this.result = number;
+        }
         return this;
     },    
     
