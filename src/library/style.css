@@ -387,6 +387,10 @@ main>h1 {
     color: #ffab00;
 }
 
+.books .book-rating i:hover {
+    font-weight: 600;
+}
+
 /*** footer ***/
 
 .bottom {
