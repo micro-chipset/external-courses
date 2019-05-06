@@ -381,14 +381,9 @@ main>h1 {
 .books .book-rating i {
     margin: 0;
     font-size: 14px;
-    font-weight: 400;
     line-height: 28px;
     letter-spacing: 1.4px;
     color: #ffab00;
-}
-
-.books .book-rating i:hover {
-    font-weight: 600;
 }
 
 /*** footer ***/
