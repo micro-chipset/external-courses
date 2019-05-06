@@ -1,0 +1,37 @@
+div {
+    margin: 30px;
+    padding: 30px;
+    width: 600px;
+}
+
+.block1 {
+    font-size: 18px;
+    background: #808080;
+}
+
+.block2 {
+    width: 15vw;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 10pt;
+    font-weight: 400;
+    background: rgb(192, 192, 192);
+}
+
+.block3 {
+    width: 20%;
+    font-size: 150%;
+    background: red;
+}
+
+.block4 {
+    width: auto;
+    font-size: 1.5em;
+    background: rgba(255, 255, 0, 0.3);
+}
+
+.block5 {
+    font-size: 1.2rem;
+    color: #000;
+    background: url(img/bg_page.png) center;
+    background-size: cover;
+}
