@@ -8,7 +8,7 @@ Calculator.prototype = Object.create(Object.prototype);
 Calculator.prototype.constructor = Calculator;
 
 Calculator.prototype.__isNumber = function(number) {
-    return typeof number === "number" && !isNaN(number);   
+    return typeof number === "number" && isFinite(number);
 }
 
 Calculator.prototype.getResult = function() {
