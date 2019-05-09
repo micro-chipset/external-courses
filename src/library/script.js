@@ -41,16 +41,24 @@ function createBook(anotherBook) {
     let textAuthor = document.createTextNode(`by ${anotherBook.author.firstName} ${anotherBook.author.lastName}`);
     bookAuthor.appendChild(textAuthor);
 
-    var rating = createRating(rating);
+    var currentRating = anotherBook.rating;
+    var rating = createRating(rating, currentRating);
     bookWrapper.appendChild(rating);
 
     return bookWrapper;
 }
 
-function createRating(rating) {
+function createRating(rating, currentRating) {
     let stars = document.createElement('div');
     stars.classList.add('book-rating');
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= currentRating; i++) {
+        let star = document.createElement('i');
+        star.classList.add('fas');
+        star.classList.add('fa-star');
+        stars.appendChild(star);
+    }
+    let emptyStars = 5 - currentRating; 
+    for (let i = 1; i <= emptyStars; i++) {
         let star = document.createElement('i');
         star.classList.add('far');
         star.classList.add('fa-star');
@@ -62,9 +70,10 @@ function createRating(rating) {
     var activeItems = stars.querySelectorAll('.fa-star.fas').length;
     // The function checks where clicked and changes classes
     var cStars = function (nowPos) {
-        // Remove fas class from all elements.
+        // Remove fas and add far class from all elements.
         for (var i = 0; allItems.length > i; i++) {
             allItems[i].classList.remove('fas');
+            allItems[i].classList.add('far');
         }
         //Add fas class to selected elements
         for (var i = 0; nowPos + 1 > i; i++) {
