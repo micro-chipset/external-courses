@@ -1,18 +1,26 @@
 "use strict"
 
-// XMLHttpRequest books
-let booksObject = booksRequest();
-function booksRequest() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://rsu-library-api.herokuapp.com/books', false);
-    xhr.send();
-    return JSON.parse(xhr.responseText);
+const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
+
+function fetchData(url, callback) {
+    return fetch(url)
+        .then(responce => {
+            if (responce.ok) {
+                return responce.json();
+            }
+        })
+        .then(data => {
+            callback(data);
+        })
+        .catch(function (error) {
+            console.log(`There was a problem with the request: ${error}`);
+        });
 }
+fetchData(urlBooks, renderBooks);
 
 // Render all books
-renderBooks();
-function renderBooks() {
-    booksObject.forEach(function (anotherBook) {
+function renderBooks(books) {
+    books.forEach(function (anotherBook) {
         let booksWrapper = document.querySelector('.books');
         let book = createBook(anotherBook);
         booksWrapper.appendChild(book);
@@ -41,7 +49,7 @@ function createBook(anotherBook) {
     let textAuthor = document.createTextNode(`by ${anotherBook.author.firstName} ${anotherBook.author.lastName}`);
     bookAuthor.appendChild(textAuthor);
 
-    var currentRating = anotherBook.rating;
+    let currentRating = anotherBook.rating;
     var rating = createRating(rating, currentRating);
     bookWrapper.appendChild(rating);
 
@@ -65,30 +73,30 @@ function createRating(rating, currentRating) {
         stars.appendChild(star);
     }
     // Array all stars
-    var allItems = stars.querySelectorAll('.fa-star');
+    let allItems = stars.querySelectorAll('.fa-star');
     // Amount active star
-    var activeItems = stars.querySelectorAll('.fa-star.fas').length;
+    let activeItems = stars.querySelectorAll('.fa-star.fas').length;
     // The function checks where clicked and changes classes
-    var cStars = function (nowPos) {
+    let cStars = function (nowPos) {
         // Remove fas and add far class from all elements.
-        for (var i = 0; allItems.length > i; i++) {
+        for (let i = 0; allItems.length > i; i++) {
             allItems[i].classList.remove('fas');
             allItems[i].classList.add('far');
         }
         //Add fas class to selected elements
-        for (var i = 0; nowPos + 1 > i; i++) {
+        for (let i = 0; nowPos + 1 > i; i++) {
 
             allItems[i].classList.toggle('fas');
         }
     }
     // Hover
     stars.addEventListener('mouseover', function (e) {
-        var myTarget = e.target;
+        let myTarget = e.target;
         // Array length
-        var i = allItems.length;
+        let i = allItems.length;
         // Find the selected element in the array and put its index variable
         while (i--) {
-            if (allItems[i] == myTarget) {
+            if (allItems[i] === myTarget) {
                 var currentIndex = i;
                 break;
             }
@@ -98,12 +106,12 @@ function createRating(rating, currentRating) {
 
     stars.addEventListener('click', function (e) {
         // Selected element
-        var myTarget = e.target;
+        let myTarget = e.target;
         // Array length
-        var i = allItems.length;
+        let i = allItems.length;
         // Find the selected element in the array and put its index variable
         while (i--) {
-            if (allItems[i] == myTarget) {
+            if (allItems[i] === myTarget) {
                 var currentIndex = i;
                 break;
             }
