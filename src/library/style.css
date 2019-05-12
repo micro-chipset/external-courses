@@ -327,6 +327,7 @@ main>h1 {
 
 .search-field [name="submit"] {
     position: absolute;
+    top: 1px;
     right: 10px;
     background-color: transparent;
     border: none;
@@ -334,7 +335,6 @@ main>h1 {
 
 .search-field [name="submit"] i {
     font-size: 14px;
-    font-weight: 400;
     line-height: 26px;
     color: #8c97b2;
 }
