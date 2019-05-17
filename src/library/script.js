@@ -24,23 +24,19 @@ function renderBooks(books) {
     const filterTop = document.querySelector(".filter");
 
     filterTop.addEventListener("click", function showFilter(filterId) {
-        let selectorFilterId;
+        let selectorFilterId = document.querySelector(`#${filterId.target.id}`);
         switch (filterId.target.id) {
             case 'most_recent':
                 filterBooks = books.sort((a, b) => b.updatedAt - a.updatedAt);
-                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
                 break;
             case 'most_popular':
                 filterBooks = books.sort((a, b) => b.rating - a.rating);
-                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
                 break;
             case 'free_books':
                 filterBooks = books.filter((item) => item.cost <= 0);
-                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
                 break;
             default:
                 filterBooks = books.sort((a, b) => a.id - b.id);
-                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
         }
         setFilterActive(selectorFilterId);
         booksWrapper.innerHTML = '';
