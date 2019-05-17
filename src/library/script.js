@@ -45,6 +45,16 @@ function renderBooks(books) {
             booksWrapper.innerHTML = "Books not found..."
         }
     });
+    
+    function debounce(callback, delay) {
+        let timer;
+        return function debounced() {
+            let args = arguments;
+            let that = this;
+            clearTimeout(timer);
+            timer = setTimeout(() => callback.apply(that, args), delay);
+        };
+    }
 
     function setFilterActive(id) {
         let filterTopItem = filterTop.children;
