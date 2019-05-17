@@ -17,14 +17,55 @@ function fetchData(url, callback) {
         });
 }
 fetchData(urlBooks, renderBooks);
-
-// Render all books
+// Render books
 function renderBooks(books) {
-    books.forEach(function (anotherBook) {
-        let booksWrapper = document.querySelector('.books');
-        let book = createBook(anotherBook);
-        booksWrapper.appendChild(book);
+    let filterBooks = books.sort((a, b) => a.id - b.id);
+    const booksWrapper = document.querySelector('.books');
+    const filterTop = document.querySelector(".filter");
+
+    filterTop.addEventListener("click", function showFilter(filterId) {
+        let selectorFilterId;
+        switch (filterId.target.id) {
+            case 'most_recent':
+                filterBooks = books.sort((a, b) => b.updatedAt - a.updatedAt);
+                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
+                break;
+            case 'most_popular':
+                filterBooks = books.sort((a, b) => b.rating - a.rating);
+                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
+                break;
+            case 'free_books':
+                filterBooks = books.filter((item) => item.cost <= 0);
+                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
+                break;
+            default:
+                filterBooks = books.sort((a, b) => a.id - b.id);
+                selectorFilterId = document.querySelector(`#${filterId.target.id}`);
+        }
+        setFilterActive(selectorFilterId);
+        booksWrapper.innerHTML = '';
+        showBooks();
+        if (filterBooks.length === 0) {
+            booksWrapper.innerHTML = "Books not found..."
+        }
     });
+
+    function setFilterActive(id) {
+        let filterTopItem = filterTop.children;
+        for (let i = 0; i < filterTopItem.length; i++) {
+            filterTopItem[i].classList.remove("active");
+        }
+        id.classList.toggle("active");
+    }
+
+    function showBooks() {
+        filterBooks.forEach(function (anotherBook) {
+
+            let book = createBook(anotherBook);
+            booksWrapper.appendChild(book);
+        });
+    }
+    showBooks();
 }
 
 // Create Book
@@ -65,7 +106,7 @@ function createRating(rating, currentRating) {
         star.classList.add('fa-star');
         stars.appendChild(star);
     }
-    let emptyStars = 5 - currentRating; 
+    let emptyStars = 5 - currentRating;
     for (let i = 1; i <= emptyStars; i++) {
         let star = document.createElement('i');
         star.classList.add('far');
