@@ -5,19 +5,19 @@ body {
     margin: 0;
     padding: 0;
 }
-form {
+.user_info {
     width: 60vw;
     margin: 0 auto;
     padding: 5px;
 }
 
-form label {
+.user_info label {
     display: block;
 }
-.inline {
+.user_info .inline {
     display: inline;
 }
 
-input, textarea {    
+.user_info input, .user_info textarea {    
     margin: 8px 0;
 }
