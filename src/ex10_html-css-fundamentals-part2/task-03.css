@@ -15,7 +15,7 @@ a, a:active, a:visited, a:focus {
     text-decoration: none;
 }
 
-header>section, main>section, section>article {
+.positioner_center {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
