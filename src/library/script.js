@@ -23,9 +23,11 @@ function renderBooks(books) {
     const booksWrapper = document.querySelector('.books');
     const filterTop = document.querySelector(".filter");
 
-    filterTop.addEventListener("click", function showFilter(filterId) {
-        let selectorFilterId = document.querySelector(`#${filterId.target.id}`);
-        switch (filterId.target.id) {
+    filterTop.addEventListener("click", showFilter);
+
+    function showFilter(event) {
+        let selectorFilterId = document.querySelector(`#${event.target.id}`);
+        switch (event.target.id) {
             case 'most_recent':
                 filterBooks = books.sort((a, b) => b.updatedAt - a.updatedAt);
                 break;
@@ -44,7 +46,7 @@ function renderBooks(books) {
         if (filterBooks.length === 0) {
             booksWrapper.innerHTML = "Books not found..."
         }
-    });
+    };
     
     function debounce(callback, delay) {
         let timer;
