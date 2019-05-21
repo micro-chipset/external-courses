@@ -31,6 +31,7 @@ function renderBooks(books) {
     showBooks(books);
 
     function showFilter(event) {
+        searchInput.value = ""
         let selectorFilterId = document.querySelector(`#${event.target.id}`);
         switch (event.target.id) {
             case 'most_recent':
