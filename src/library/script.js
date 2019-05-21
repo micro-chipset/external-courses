@@ -22,8 +22,14 @@ function renderBooks(books) {
     let filterBooks = books.sort((a, b) => a.id - b.id);
     const booksWrapper = document.querySelector('.books');
     const filterTop = document.querySelector(".filter");
+    const searchInput = document.querySelector("#search");
+    const searchButton = document.querySelector("#search_button");
 
     filterTop.addEventListener("click", showFilter);
+    searchInput.addEventListener("input", debounce(search, 1000));
+    // searchButton.addEventListener("click", deleteSearchText);
+
+    showBooks(books);
 
     function showFilter(event) {
         let selectorFilterId = document.querySelector(`#${event.target.id}`);
@@ -42,20 +48,7 @@ function renderBooks(books) {
         }
         setFilterActive(selectorFilterId);
         booksWrapper.innerHTML = '';
-        showBooks();
-        if (filterBooks.length === 0) {
-            booksWrapper.innerHTML = "Books not found..."
-        }
-    };
-    
-    function debounce(callback, delay) {
-        let timer;
-        return function debounced() {
-            let args = arguments;
-            let that = this;
-            clearTimeout(timer);
-            timer = setTimeout(() => callback.apply(that, args), delay);
-        };
+        showBooks(filterBooks);   
     }
 
     function setFilterActive(id) {
@@ -66,14 +59,37 @@ function renderBooks(books) {
         id.classList.toggle("active");
     }
 
-    function showBooks() {
-        filterBooks.forEach(function (anotherBook) {
+    function debounce(callback, delay) {
+        let timer;
+        return function debounced() {
+            let args = arguments;
+            let that = this;
+            clearTimeout(timer);
+            timer = setTimeout(() => callback.apply(that, args), delay);
+        };
+    }
+
+    function search() {
+        let value = searchInput.value.toLowerCase();
+        let searchBooks = filterBooks.filter((item) =>
+            (item.author.firstName.toLowerCase().indexOf(value) > -1
+            || item.author.lastName.toLowerCase().indexOf(value) > -1
+            || item.title.toLowerCase().indexOf(value) > -1)
+        );
+        booksWrapper.innerHTML = '';
+        showBooks(searchBooks);
+    }
+
+    function showBooks(books) {
+        books.forEach(function (anotherBook) {
 
             let book = createBook(anotherBook);
             booksWrapper.appendChild(book);
         });
+        if (books.length === 0) {
+            booksWrapper.innerHTML = "Books not found..."
+        }
     }
-    showBooks();
 }
 
 // Create Book
