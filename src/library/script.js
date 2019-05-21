@@ -27,7 +27,6 @@ function renderBooks(books) {
 
     filterTop.addEventListener("click", showFilter);
     searchInput.addEventListener("input", debounce(search, 1000));
-    // searchButton.addEventListener("click", deleteSearchText);
 
     showBooks(books);
 
@@ -80,6 +79,16 @@ function renderBooks(books) {
         showBooks(searchBooks);
     }
 
+    function showButtonDelete() {
+        if (searchInput.value !== "") {
+            searchButton.firstChild.classList.remove('fa-search')
+            searchButton.firstChild.classList.add('fa-times')
+        } else {
+            searchButton.firstChild.classList.remove('fa-times')
+            searchButton.firstChild.classList.add('fa-search')
+        }
+    }
+
     function showBooks(books) {
         books.forEach(function (anotherBook) {
 
@@ -89,6 +98,7 @@ function renderBooks(books) {
         if (books.length === 0) {
             booksWrapper.innerHTML = "Books not found..."
         }
+        showButtonDelete();
     }
 }
 
