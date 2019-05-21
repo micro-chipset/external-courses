@@ -48,7 +48,7 @@ function renderBooks(books) {
         }
         setFilterActive(selectorFilterId);
         booksWrapper.innerHTML = '';
-        showBooks(filterBooks);   
+        showBooks(filterBooks);
     }
 
     function setFilterActive(id) {
@@ -73,8 +73,8 @@ function renderBooks(books) {
         let value = searchInput.value.toLowerCase();
         let searchBooks = filterBooks.filter((item) =>
             (item.author.firstName.toLowerCase().indexOf(value) > -1
-            || item.author.lastName.toLowerCase().indexOf(value) > -1
-            || item.title.toLowerCase().indexOf(value) > -1)
+                || item.author.lastName.toLowerCase().indexOf(value) > -1
+                || item.title.toLowerCase().indexOf(value) > -1)
         );
         booksWrapper.innerHTML = '';
         showBooks(searchBooks);
