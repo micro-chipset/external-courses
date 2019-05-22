@@ -1,9 +1,11 @@
 let books = [];
+let filterBooks = [];
 
 callApi(urlBooks, renderBooks);
 
 function saveBooks(receivedBooks) {
     books = receivedBooks;
+    filterBooks = books.sort((a, b) => a.id - b.id);
 }
 
 // Render books

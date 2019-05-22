@@ -1,4 +1,4 @@
-let filterBooks = books.sort((a, b) => a.id - b.id);
+
 const booksWrapper = document.querySelector('.books');
 const filterTop = document.querySelector(".filter");
 const searchInput = document.querySelector("#search");
