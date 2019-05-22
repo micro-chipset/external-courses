@@ -8,6 +8,7 @@ function callApi(url, callback) {
             }
         })
         .then(data => {
+            saveBooks(data);
             callback(data);
         })
         .catch(function (error) {
