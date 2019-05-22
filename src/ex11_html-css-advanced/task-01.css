@@ -1,4 +1,4 @@
-img {
+.picture {
     display: block;
     margin: 100px auto;
     animation: mask 5s linear infinite;
