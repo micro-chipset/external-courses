@@ -59,16 +59,6 @@ function renderBooks(books) {
         id.classList.toggle("active");
     }
 
-    function debounce(callback, delay) {
-        let timer;
-        return function debounced() {
-            let args = arguments;
-            let that = this;
-            clearTimeout(timer);
-            timer = setTimeout(() => callback.apply(that, args), delay);
-        };
-    }
-
     function search() {
         let value = searchInput.value.toLowerCase();
         let searchBooks = filterBooks.filter((item) =>
