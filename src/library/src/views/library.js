@@ -4,6 +4,19 @@ const filterTop = document.querySelector(".filter");
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search_button");
 
+// Render books
+function renderBooks(books) {
+    books.forEach(function (anotherBook) {
+
+        let book = createBook(anotherBook);
+        booksWrapper.appendChild(book);
+    });
+    if (books.length === 0) {
+        booksWrapper.innerHTML = "Books not found..."
+    }
+    showButtonDelete();
+}
+
 // Create Book
 function createBook(anotherBook) {
     let bookWrapper = document.createElement('article');

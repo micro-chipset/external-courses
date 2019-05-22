@@ -1,25 +1,9 @@
 let books = [];
 let filterBooks = [];
 
-callApi(urlBooks, renderBooks);
-
 function saveBooks(receivedBooks) {
     books = receivedBooks;
     filterBooks = books.sort((a, b) => a.id - b.id);
-}
-
-// Render books
-function renderBooks(books) {
-
-    books.forEach(function (anotherBook) {
-
-        let book = createBook(anotherBook);
-        booksWrapper.appendChild(book);
-    });
-    if (books.length === 0) {
-        booksWrapper.innerHTML = "Books not found..."
-    }
-    showButtonDelete();
 }
 
 function showFilter(event) {
