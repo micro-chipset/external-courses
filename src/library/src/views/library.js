@@ -93,6 +93,10 @@ function createRating(rating, currentRating) {
                 break;
             }
         }
+        // Reset rating
+        if (currentIndex + 1 === activeItems) {
+            currentIndex = -1;
+        }
         cStars(currentIndex);
         // Change amount active star 
         activeItems = stars.querySelectorAll('.book-rating .fa-star.fas').length;
