@@ -1,22 +1,6 @@
 "use strict"
 
-const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
-
-function fetchData(url, callback) {
-    return fetch(url)
-        .then(responce => {
-            if (responce.ok) {
-                return responce.json();
-            }
-        })
-        .then(data => {
-            callback(data);
-        })
-        .catch(function (error) {
-            console.log(`There was a problem with the request: ${error}`);
-        });
-}
-fetchData(urlBooks, renderBooks);
+callApi(urlBooks, renderBooks);
 // Render books
 function renderBooks(books) {
     let filterBooks = books.sort((a, b) => a.id - b.id);
