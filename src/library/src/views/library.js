@@ -4,9 +4,6 @@ const filterTop = document.querySelector(".filter");
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search_button");
 
-filterTop.addEventListener("click", showFilter);
-searchInput.addEventListener("input", debounce(search, 1000));
-
 // Create Book
 function createBook(anotherBook) {
     let bookWrapper = document.createElement('article');
