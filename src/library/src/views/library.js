@@ -40,14 +40,13 @@ function createBook(anotherBook) {
     bookAuthor.appendChild(textAuthor);
 
     let currentRating = anotherBook.rating;
-    var rating = createRating(rating, currentRating);
+    var rating = createRating(currentRating);
     bookWrapper.appendChild(rating);
 
     return bookWrapper;
 }
 
-function createRating(rating, currentRating) {
-    let stars = document.createElement('div');
+function createStar(stars, currentRating) {
     stars.classList.add('book-rating');
     for (let i = 1; i <= currentRating; i++) {
         let star = document.createElement('i');
@@ -62,6 +61,11 @@ function createRating(rating, currentRating) {
         star.classList.add('fa-star');
         stars.appendChild(star);
     }
+}
+
+function createRating(currentRating) {
+    let stars = document.createElement('div');
+    createStar(stars, currentRating);
     // Array all stars
     let allItems = stars.querySelectorAll('.fa-star');
     // Amount active star
