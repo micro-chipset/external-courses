@@ -70,7 +70,7 @@ function createRating(currentRating) {
     let stars = document.createElement('div');
     createStar(stars, currentRating);
     // Array all stars
-    let allItems = stars.querySelectorAll('.fa-star');
+    let allItems = Array.from(stars.querySelectorAll('.fa-star'));
     // Amount active star
     let activeItems = stars.querySelectorAll('.fa-star.fas').length;
     // The function checks where clicked and changes classes
@@ -88,31 +88,18 @@ function createRating(currentRating) {
     }
     // Hover
     stars.addEventListener('mouseover', function (e) {
+        // Selected element
         let myTarget = e.target;
-        // Array length
-        let i = allItems.length;
         // Find the selected element in the array and put its index variable
-        while (i--) {
-            if (allItems[i] === myTarget) {
-                var currentIndex = i;
-                break;
-            }
-        }
+        currentIndex = allItems.findIndex(elem => elem === myTarget);
         cStars(currentIndex);
     });
 
     stars.addEventListener('click', function (e) {
         // Selected element
         let myTarget = e.target;
-        // Array length
-        let i = allItems.length;
         // Find the selected element in the array and put its index variable
-        while (i--) {
-            if (allItems[i] === myTarget) {
-                var currentIndex = i;
-                break;
-            }
-        }
+        currentIndex = allItems.findIndex(elem => elem === myTarget);
         // Reset rating
         if (currentIndex + 1 === activeItems) {
             currentIndex = -1;
