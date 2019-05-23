@@ -1,5 +1,3 @@
-const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
-
 function callApi(url, callback) {
     return fetch(url)
         .then(responce => {
