@@ -107,6 +107,31 @@
         <section class="books">
         </section>
     </main>
+    <div class="modal-overlay closed" id="modal-overlay"></div>
+    <div class="modal closed" id="modal">
+        <button class="close-button" id="close-button">Close</button>
+        <div class="modal-guts">
+            <h2>Add a book</h2>
+            <form class="book_add" action="#" method="GET" name="book_add">
+                <label>Title:<input type="text" id="title" name="title" placeholder="Enter Title"></label>
+                <label>Author First Name:<input type="text" id="firstName" name="firstName"
+                        placeholder="Enter First Name"></label>
+                <label>Author Last Name:<input type="text" id="lastName" name="lastName"
+                        placeholder="Enter Last Name"></label>
+                <label>Cost:<input type="text" id="cost" name="cost" placeholder="Enter Cost"></label>
+                <label>Image:<input type="url" id="image_url" name="image_url" value="assets/img/default_book.jpg"
+                        placeholder="Enter Url">
+                </label>
+                <b>Categories:</b>
+                <label>Must read:<input checked type="checkbox" class="checkbox" name="category"
+                        value="must_read"></label>
+                <label>Best:<input type="checkbox" class="checkbox" name="category" value="best"></label>
+                <label>Non fiction:<input type="checkbox" class="checkbox" name="category" value="non_fiction"></label>
+                <p class="error_message hidden">* Please, check all fields!!!</p>
+                <input type="button" value="Add a book" class="submit">
+            </form>
+        </div>
+    </div>
     <footer class="bottom">
         <nav>
             <ul>
