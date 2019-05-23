@@ -36,13 +36,15 @@ function setFilterActive(id) {
     id.classList.toggle("active");
 }
 
+function getSearch(item) {
+    const value = searchInput.value.toLowerCase();
+    return (item.author.firstName.toLowerCase().indexOf(value) > -1
+        || item.author.lastName.toLowerCase().indexOf(value) > -1
+        || item.title.toLowerCase().indexOf(value) > -1);
+}
+
 function search() {
-    let value = searchInput.value.toLowerCase();
-    let searchBooks = filterBooks.filter((item) =>
-        (item.author.firstName.toLowerCase().indexOf(value) > -1
-            || item.author.lastName.toLowerCase().indexOf(value) > -1
-            || item.title.toLowerCase().indexOf(value) > -1)
-    );
+    let searchBooks = filterBooks.filter(getSearch);
     booksWrapper.innerHTML = '';
     renderBooks(searchBooks);
 }
