@@ -14,7 +14,7 @@ function renderBooks(books) {
         let book = createBook(anotherBook);
         booksWrapper.appendChild(book);
     });
-    if (books.length === 0) {
+    if (!books.length) {
         booksWrapper.innerHTML = "Books not found..."
     }
     showButtonDelete();
