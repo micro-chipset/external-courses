@@ -4,6 +4,7 @@ let filterBooks = [];
 function saveBooks(receivedBooks) {
     books = receivedBooks;
     filterBooks = books.sort((a, b) => a.id - b.id);
+    renderBooks(books);
 }
 
 function showFilter(event) {
