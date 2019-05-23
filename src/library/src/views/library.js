@@ -4,6 +4,9 @@ const filterTop = document.querySelector(".filter");
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search_button");
 
+filterTop.addEventListener("click", showFilter);
+searchInput.addEventListener("input", debounce(search, 1000));
+
 // Render books
 function renderBooks(books) {
     books.forEach(function (anotherBook) {
