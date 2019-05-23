@@ -9,7 +9,7 @@ function saveBooks(receivedBooks) {
 
 function showFilter(event) {
     searchInput.value = ""
-    let selectorFilterId = document.querySelector(`#${event.target.id}`);
+    let selectorFilterElemId = document.querySelector(`#${event.target.id}`);
     switch (event.target.id) {
         case 'most_recent':
             filterBooks = books.sort((a, b) => b.updatedAt - a.updatedAt);
@@ -23,7 +23,7 @@ function showFilter(event) {
         default:
             filterBooks = books.sort((a, b) => a.id - b.id);
     }
-    setFilterActive(selectorFilterId);
+    setFilterActive(selectorFilterElemId);
     booksWrapper.innerHTML = '';
     renderBooks(filterBooks);
 }
