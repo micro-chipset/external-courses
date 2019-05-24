@@ -1,24 +1,26 @@
 
 (function () {
     'use strict';
-    function View() {
-        this.booksWrapper = document.querySelector('.books');
-        this.filterTop = document.querySelector(".filter");
-        this.searchInput = document.querySelector("#search");
-        this.searchButton = document.querySelector("#search_button");
-        this.modal = document.querySelector("#modal");
-        this.modalOverlay = document.querySelector("#modal-overlay");
-        this.closeButton = document.querySelector("#close-button");
-        this.openButton = document.querySelector(".button-book-add");
-        this.form = document.querySelector(".book_add");
-        this.pushBook = document.querySelector(".submit");
-        this.errorMessage = document.querySelector(".error_message");
+    function View(model) {
+        var self = this;
+        self.model = model;
+        self.booksWrapper = document.querySelector('.books');
+        self.filterTop = document.querySelector(".filter");
+        self.searchInput = document.querySelector("#search");
+        self.searchButton = document.querySelector("#search_button");
+        self.modal = document.querySelector("#modal");
+        self.modalOverlay = document.querySelector("#modal-overlay");
+        self.closeButton = document.querySelector("#close-button");
+        self.openButton = document.querySelector(".button-book-add");
+        self.form = document.querySelector(".book_add");
+        self.pushBook = document.querySelector(".submit");
+        self.errorMessage = document.querySelector(".error_message");
 
-        // this.filterTop.addEventListener("click", showFilter);
-        // this.searchInput.addEventListener("input", debounce(search, 1000));
-        // this.openButton.addEventListener("click", openCloseModal);
-        // this.closeButton.addEventListener("click", openCloseModal);
-        // this.pushBook.addEventListener("click", validateBook);
+        self.filterTop.addEventListener("click", self.model.showFilter);
+        self.searchInput.addEventListener("input", debounce(self.search, 1000));
+        self.openButton.addEventListener("click", self.openCloseModal);
+        self.closeButton.addEventListener("click", self.openCloseModal);
+        self.pushBook.addEventListener("click", self.validateBook);
     }
 
     // Render books
@@ -26,7 +28,7 @@
         books.forEach(function (anotherBook) {
 
             let book = createBook(anotherBook);
-            this.booksWrapper.appendChild(book);
+            self.booksWrapper.appendChild(book);
         });
         if (!books.length) {
             booksWrapper.innerHTML = "Books not found..."
@@ -34,12 +36,12 @@
         showButtonDelete();
     }
     View.prototype.showButtonDelete = function () {
-        if (this.searchInput.value !== "") {
-            this.searchButton.firstChild.classList.remove('fa-search')
-            this.searchButton.firstChild.classList.add('fa-times')
+        if (self.searchInput.value !== "") {
+            self.searchButton.firstChild.classList.remove('fa-search')
+            self.searchButton.firstChild.classList.add('fa-times')
         } else {
-            this.searchButton.firstChild.classList.remove('fa-times')
-            this.searchButton.firstChild.classList.add('fa-search')
+            self.searchButton.firstChild.classList.remove('fa-times')
+            self.searchButton.firstChild.classList.add('fa-search')
         }
     }
 
@@ -140,8 +142,8 @@
     }
 
     View.prototype.openCloseModal = function () {
-        this.modal.classList.toggle("closed");
-        this.modalOverlay.classList.toggle("closed");
+        self.modal.classList.toggle("closed");
+        self.modalOverlay.classList.toggle("closed");
     }
 
     View.prototype.addBook = function (value) {
@@ -160,8 +162,8 @@
         });
         book.createdAt = new Date().getTime();
         book.updatedAt = new Date().getTime();
-        this.books.push(book);
-        this.booksWrapper.innerHTML = '';
+        self.books.push(book);
+        self.booksWrapper.innerHTML = '';
         renderBooks(books);
     }
 
@@ -183,11 +185,11 @@
             && form.elements.firstName.value !== ""
             && form.elements.lastName.value !== ""
             && form.elements.cost.value !== ""
-            && isNumber(+form.elements.cost.value)
+            && (+form.elements.cost.value)
             && (+form.elements.cost.value) >= 0;
 
         if (isValidateData) {
-            this.errorMessage.classList.add("hidden");
+            self.errorMessage.classList.add("hidden");
             addBook(form);
             form.elements.title.value = "";
             form.elements.firstName.value = "";
@@ -195,7 +197,7 @@
             form.elements.cost.value = "";
             openCloseModal();
         } else {
-            this.errorMessage.classList.remove("hidden");
+            self.errorMessage.classList.remove("hidden");
         }
     }
 

@@ -1,14 +1,14 @@
 (function () {
     'use strict';
     function Controller(model, view) {
-
-        this.model = model;
-        this.view = view;
+        var self = this;
+        self.model = model;
+        self.view = view;
         
         const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
         callApi(urlBooks, function (err, data) {
-            this.model.saveBooks(data, function (filtereBooks) {
-                this.view.renderBooks(filtereBooks)
+            self.model.saveBooks(data, function (filtereBooks) {
+                self.view.renderBooks(filtereBooks)
             })
         });
     }

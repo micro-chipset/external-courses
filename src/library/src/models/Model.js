@@ -12,20 +12,20 @@
     }
 
     Model.prototype.showFilter = function (event) {
-        this.view.searchInput.value = ""
+        // this.view.searchInput.value = ""
         let selectorFilterElemId = document.querySelector(`#${event.target.id}`);
         switch (event.target.id) {
             case 'most_recent':
                 this.filterBooks = books.sort((a, b) => b.updatedAt - a.updatedAt);
                 break;
             case 'most_popular':
-                this.filterBooks = books.sort((a, b) => b.rating - a.rating);
+                this.filterBooks = this.books.sort((a, b) => b.rating - a.rating);
                 break;
             case 'free_books':
-                this.filterBooks = books.filter((item) => item.cost <= 0);
+                this.filterBooks = this.books.filter((item) => item.cost <= 0);
                 break;
             default:
-                filterBooks = books.sort((a, b) => a.id - b.id);
+                filterBooks = this.books.sort((a, b) => a.id - b.id);
         }
         setFilterActive(selectorFilterElemId);
         booksWrapper.innerHTML = '';

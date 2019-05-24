@@ -1,8 +1,9 @@
 function App() {
 
     this.model = new Model(this.view);
-    this.view = new View();
+    this.view = new View(this.model);
     this.controller = new Controller(this.model, this.view);
 }
 
 var app = new App();
+// app.view.renderBooks();
