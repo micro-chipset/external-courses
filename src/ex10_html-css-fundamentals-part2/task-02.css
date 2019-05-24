@@ -1,0 +1,32 @@
+#table-task-02 {
+    width: 50vw;
+    margin: 50px auto;
+}
+
+#table-task-02 td {
+    padding: 10px;
+}
+
+#table-task-02 .table-row-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px;
+    background: #dbe4f0;
+}
+
+#table-task-02 .table-data-customer {
+    text-transform: capitalize;
+}
+
+#table-task-02 .table-row-odd {
+    background: #edf2f8;
+}
+
+#table-task-02 .table-row-even {
+    background: #dde4ee;
+}
+
+#table-task-02 tr:hover {
+    background: #d3d8de;
+    cursor: pointer;
+}

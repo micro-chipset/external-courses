@@ -1,0 +1,345 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #6d6e71;
+    display: flex;
+    flex-direction: column;
+}
+
+a, a:active, a:visited, a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+.positioner_center {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 0;
+}
+
+.header-top .logo {
+    position: relative;
+}
+
+.header-top .logo span {
+    position: absolute;
+    left: 160px;
+    top: 15px;
+    font-size: 41px;
+    font-weight: 400;
+    color: #3687c4;
+}
+
+.header-top .contacts>ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.header-top .contacts li {
+    position: relative;
+    padding: 0 11px;
+}
+
+.header-top .contacts li .arrow {
+    content: '';
+    position: absolute;
+    left: -90px;
+    bottom: 50px;
+    width: 227px;
+    height: 61px;
+    background: url(task-03/img/block-arrow.png) no-repeat;
+    z-index: -1;
+}
+
+.header-top .contacts li .hint {
+    content: '';
+    position: absolute;
+    left: -65px;
+    bottom: 45px;
+    width: 220px;
+    height: 55px;
+}
+
+.header-top .contacts li:not(:last-child) {
+    border-right: 1px solid #bcbec3;
+}
+
+.top-menu {
+    border-top: 1px solid #eceef4;
+}
+
+.top-menu-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-menu nav {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.top-menu nav>ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.top-menu nav a {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 35px 20px;
+}
+
+.top-menu nav a:hover {
+    color: #1faae2;
+}
+
+.top-menu nav a:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 15px);
+    width: 0;
+    height: 0;
+    border-right: 16px solid transparent;
+    border-bottom: 8px solid #1faae2;
+    border-left: 16px solid transparent;
+}
+
+.top-menu nav li:not(:last-child) a {
+    border-right: 1px solid #eceef4;
+}
+
+.top-menu .logo-tablet, .top-menu .button-burger {
+    display: none;
+}
+
+.top-menu .search {
+    position: relative;
+}
+
+.top-menu .search input {
+    font-size: 15px;
+    border: none;
+}
+
+.search::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    width: 25px;
+    height: 25px;
+    background: url(task-03/img/search.svg) no-repeat;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: url(task-03/img/main-bg.png) no-repeat center top;
+    z-index: -1;
+}
+
+main {
+    margin-bottom: 180px;
+    position: relative;
+}
+
+main .main-header {
+    display: block;
+    position: relative;
+    left: 0;
+    width: 767px;
+    margin: 265px auto 0;
+}
+
+main .main-header h1 {
+    position: relative;
+    margin: 0;
+    font-size: 58px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 1px 1px 8px rgba(1, 1, 1, 0.15);
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+main .main-header span {
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    font-size: 120px;
+    font-weight: 700;
+    color: #bbedff;
+}
+
+main .main-header p {
+    position: relative;
+    left: 110px;
+    margin: 0;
+    font-size: 45px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(1, 1, 1, 0.15);
+    z-index: 1;
+}
+
+main .slider {
+    display: flex;
+    justify-content: flex-end;
+    height: 241px;
+    margin-top: 146px;
+}
+
+main .slider .slide-1, main .slider .slide-2 {
+    display: block;
+    position: relative;
+}
+
+main .slider .button-like {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 11px;
+    font-size: 14px;
+    color: #cc9800;
+    line-height: 58px;
+    font-weight: 400;
+    text-align: center;
+    cursor: pointer;
+}
+
+main .slider .button-like::before {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: 9px;
+    right: 12px;
+    width: 32px;
+    height: 29px;
+    background: url(task-03/img/like.svg) no-repeat top center;
+}
+
+main .slider .slide-1 .button-like {
+    background: url(task-03/img/slide-1-bg.png);
+    height: 65px;
+}
+
+main .slider .slide-2 .button-like {
+    background: url(task-03/img/slide-2-bg.png);
+    height: 65px;
+}
+
+main .slider .slide-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 111px;
+    background: url(task-03/img/slide-arrow-bg.png);
+}
+
+main .articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 151px;
+}
+
+main .articles article {
+    display: flex;
+    align-items: flex-start;
+    flex-basis: 520px;
+    text-align: justify;
+}
+
+main .articles article img {
+    margin-right: 30px;
+}
+
+main .articles article h2 {
+    margin: 15px 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+@media (max-width: 1199px) {
+    header>section, main>section, section>article {
+        width: 100%;
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 0 11px;
+    }
+    .header-top {
+        display: none;
+    }
+    .top-menu {
+        padding: 14px 0;
+    }
+    .top-menu .logo-tablet {
+        display: block;
+    }
+    .top-menu .top-menu-wrapper {
+        max-width: 100%;
+        padding: 0 30px;
+    }
+    .top-menu nav ul {
+        display: none;
+    }
+    .top-menu .button-burger {
+        display: block;
+    }
+    .top-menu .button-burger span {
+        display: block;
+        width: 60px;
+        height: 10px;
+        margin: 0 0 13px;
+        background-color: #3687c4;
+    }
+    .to-pmenu .button-burger span:last-child {
+        margin: 0;
+    }
+    .top-menu .search {
+        padding: 40px 0;
+    }
+    .top-menu .search::before {
+        top: 39px;
+    }
+    .top-menu .search input {
+        width: 160px;
+    }
+    main .background {
+        background-image: url(task-03/img/main-tablet-bg.png);
+    }
+    main .slider {
+        display: none;
+    }
+    main .articles {
+        margin-top: 405px;
+    }
+    main .articles article {
+        flex-basis: 100%;
+    }
+    main .articles article p {
+        max-height: 65px;
+    }
+}
