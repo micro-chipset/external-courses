@@ -23,6 +23,35 @@
         self.pushBook.addEventListener("click", self.validateBook);
     }
 
+    View.prototype.showFilter = function (event) {
+        self.searchInput.value = ""
+        let selectorFilterElemId = document.querySelector(`#${event.target.id}`);
+        switch (event.target.id) {
+            case 'most_recent':
+                self.filterBooks = self.books.sort((a, b) => b.updatedAt - a.updatedAt);
+                break;
+            case 'most_popular':
+                self.filterBooks = self.books.sort((a, b) => b.rating - a.rating);
+                break;
+            case 'free_books':
+                self.filterBooks = self.books.filter((item) => item.cost <= 0);
+                break;
+            default:
+                self.filterBooks = self.books.sort((a, b) => a.id - b.id);
+        }
+        setFilterActive(selectorFilterElemId);
+        self.booksWrapper.innerHTML = '';
+        renderBooks(filterBooks);
+    }
+
+    View.prototype.setFilterActive = function (id) {
+        let filterTopItem = self.filterTop.children;
+        for (let i = 0; i < filterTopItem.length; i++) {
+            filterTopItem[i].classList.remove("active");
+        }
+        id.classList.toggle("active");
+    }
+
     // Render books
     View.prototype.renderBooks = function (books) {
         books.forEach(function (anotherBook) {
