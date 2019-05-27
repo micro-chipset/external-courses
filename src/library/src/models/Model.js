@@ -5,11 +5,11 @@
         this.books = [];
         this.filterBooks = [];
     }
-    Model.prototype.saveBooks = function (receivedBooks, cb) {
+    Model.prototype.saveBooks = function (receivedBooks) {
         this.books = receivedBooks;
         this.filterBooks = this.books.sort((a, b) => a.id - b.id);
         this.view.renderBooks(this.filterBooks);
-        cb(this.filterBooks);
+        // cb(this.filterBooks);
     }
 
     Model.prototype.showFilter = function (event) {
