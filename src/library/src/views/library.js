@@ -1,51 +1,29 @@
 
 (function () {
     'use strict';
-    function View(model) {
+    function View() {
         var self = this;
-        self.model = model;
-        self.booksWrapper = document.querySelector('.books');
-        self.filterTop = document.querySelector(".filter");
-        self.searchInput = document.querySelector("#search");
-        self.searchButton = document.querySelector("#search_button");
-        self.modal = document.querySelector("#modal");
-        self.modalOverlay = document.querySelector("#modal-overlay");
-        self.closeButton = document.querySelector("#close-button");
-        self.openButton = document.querySelector(".button-book-add");
-        self.form = document.querySelector(".book_add");
-        self.pushBook = document.querySelector(".submit");
-        self.errorMessage = document.querySelector(".error_message");
+        self.$booksWrapper = document.querySelector('.books');
+        self.$filterTop = document.querySelector(".filter");
+        self.$searchInput = document.querySelector("#search");
+        self.$searchButton = document.querySelector("#search_button");
+        self.$modal = document.querySelector("#modal");
+        self.$modalOverlay = document.querySelector("#modal-overlay");
+        self.$closeButton = document.querySelector("#close-button");
+        self.$openButton = document.querySelector(".button-book-add");
+        self.$form = document.querySelector(".book_add");
+        self.$pushBook = document.querySelector(".submit");
+        self.$errorMessage = document.querySelector(".error_message");
 
-        self.filterTop.addEventListener("click", self.model.showFilter);
-        self.searchInput.addEventListener("input", debounce(self.search, 1000));
-        self.openButton.addEventListener("click", self.openCloseModal);
-        self.closeButton.addEventListener("click", self.openCloseModal);
-        self.pushBook.addEventListener("click", self.validateBook);
-    }
-
-    View.prototype.showFilter = function (event) {
-        self.searchInput.value = ""
-        let selectorFilterElemId = document.querySelector(`#${event.target.id}`);
-        switch (event.target.id) {
-            case 'most_recent':
-                self.filterBooks = self.books.sort((a, b) => b.updatedAt - a.updatedAt);
-                break;
-            case 'most_popular':
-                self.filterBooks = self.books.sort((a, b) => b.rating - a.rating);
-                break;
-            case 'free_books':
-                self.filterBooks = self.books.filter((item) => item.cost <= 0);
-                break;
-            default:
-                self.filterBooks = self.books.sort((a, b) => a.id - b.id);
-        }
-        setFilterActive(selectorFilterElemId);
-        self.booksWrapper.innerHTML = '';
-        renderBooks(filterBooks);
+        self.$filterTop.addEventListener("click", self.showFilter);
+        self.$searchInput.addEventListener("input", debounce(self.search, 1000));
+        self.$openButton.addEventListener("click", self.openCloseModal);
+        self.$closeButton.addEventListener("click", self.openCloseModal);
+        self.$pushBook.addEventListener("click", self.validateBook);
     }
 
     View.prototype.setFilterActive = function (id) {
-        let filterTopItem = self.filterTop.children;
+        let filterTopItem = self.$filterTop.children;
         for (let i = 0; i < filterTopItem.length; i++) {
             filterTopItem[i].classList.remove("active");
         }
@@ -57,20 +35,20 @@
         books.forEach(function (anotherBook) {
 
             let book = createBook(anotherBook);
-            self.booksWrapper.appendChild(book);
+            self.$booksWrapper.appendChild(book);
         });
         if (!books.length) {
-            booksWrapper.innerHTML = "Books not found..."
+            $booksWrapper.innerHTML = "Books not found..."
         }
         showButtonDelete();
     }
     View.prototype.showButtonDelete = function () {
-        if (self.searchInput.value !== "") {
-            self.searchButton.firstChild.classList.remove('fa-search')
-            self.searchButton.firstChild.classList.add('fa-times')
+        if (self.$searchInput.value !== "") {
+            self.$searchButton.firstChild.classList.remove('fa-search')
+            self.$searchButton.firstChild.classList.add('fa-times')
         } else {
-            self.searchButton.firstChild.classList.remove('fa-times')
-            self.searchButton.firstChild.classList.add('fa-search')
+            self.$searchButton.firstChild.classList.remove('fa-times')
+            self.$searchButton.firstChild.classList.add('fa-search')
         }
     }
 
@@ -171,8 +149,8 @@
     }
 
     View.prototype.openCloseModal = function () {
-        self.modal.classList.toggle("closed");
-        self.modalOverlay.classList.toggle("closed");
+        self.$modal.classList.toggle("closed");
+        self.$modalOverlay.classList.toggle("closed");
     }
 
     View.prototype.addBook = function (value) {
@@ -192,7 +170,7 @@
         book.createdAt = new Date().getTime();
         book.updatedAt = new Date().getTime();
         self.books.push(book);
-        self.booksWrapper.innerHTML = '';
+        self.$booksWrapper.innerHTML = '';
         renderBooks(books);
     }
 
@@ -209,24 +187,24 @@
     }
 
     View.prototype.validateBook = function () {
-        let form = document.forms.book_add;
-        let isValidateData = form.elements.title.value !== ""
-            && form.elements.firstName.value !== ""
-            && form.elements.lastName.value !== ""
-            && form.elements.cost.value !== ""
-            && (+form.elements.cost.value)
-            && (+form.elements.cost.value) >= 0;
+        let $form = document.forms.book_add;
+        let isValidateData = $form.elements.title.value !== ""
+            && $form.elements.firstName.value !== ""
+            && $form.elements.lastName.value !== ""
+            && $form.elements.cost.value !== ""
+            && (+$form.elements.cost.value)
+            && (+$form.elements.cost.value) >= 0;
 
         if (isValidateData) {
-            self.errorMessage.classList.add("hidden");
-            addBook(form);
-            form.elements.title.value = "";
-            form.elements.firstName.value = "";
-            form.elements.lastName.value = "";
-            form.elements.cost.value = "";
+            self.$errorMessage.classList.add("hidden");
+            addBook($form);
+            $form.elements.title.value = "";
+            $form.elements.firstName.value = "";
+            $form.elements.lastName.value = "";
+            $form.elements.cost.value = "";
             openCloseModal();
         } else {
-            self.errorMessage.classList.remove("hidden");
+            self.$errorMessage.classList.remove("hidden");
         }
     }
 
