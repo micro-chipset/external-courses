@@ -1,7 +1,7 @@
 function App() {
     
-    this.view = new View();
     this.model = new Model(this.view);
+    this.view = new View(this.model);
     this.controller = new Controller(this.model, this.view);
 }
 // debugger;

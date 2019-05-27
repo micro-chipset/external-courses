@@ -1,33 +1,45 @@
 
 (function () {
     'use strict';
-    function View() {
+    function View(model) {
         var self = this;
-        const $booksWrapper = document.querySelector('.books');
+        this.model = model;
         const $filterTop = document.querySelector(".filter");
         const $searchInput = document.querySelector("#search");
         const $searchButton = document.querySelector("#search_button");
-        
+
 
         const $closeButton = document.querySelector("#close-button");
         const $openButton = document.querySelector(".button-book-add");
-        const $form = document.querySelector(".book_add");
+        // const $form = document.querySelector(".book_add");
         const $pushBook = document.querySelector(".submit");
-        
 
-        $filterTop.addEventListener("click", self.showFilter);
-        // $searchInput.addEventListener("input", debounce(self.search, 1000));
+
+        $filterTop.addEventListener("click", self.setFilterActive);
+        $searchInput.addEventListener("input", debounce(self.search, 1000));
         $openButton.addEventListener("click", self.openCloseModal);
         $closeButton.addEventListener("click", self.openCloseModal);
         $pushBook.addEventListener("click", self.validateBook);
     }
 
-    View.prototype.setFilterActive = function (id) {
-        let filterTopItem = self.$filterTop.children;
+    View.prototype.setFilterActive = function (event) {
+        const $filterTop = document.querySelector(".filter");
+        const $booksWrapper = document.querySelector('.books');
+        let filterElemId = event.target.id;
+        let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
+        let filterTopItem = $filterTop.children;
         for (let i = 0; i < filterTopItem.length; i++) {
             filterTopItem[i].classList.remove("active");
         }
-        id.classList.toggle("active");
+        selectorFilterElemId.classList.toggle("active");
+        $booksWrapper.innerHTML = '';
+        this.renderBooks(this.model.setFilter(filterElemId));
+    }
+
+    View.prototype.search = function () {
+        const $booksWrapper = document.querySelector('.books');
+        $booksWrapper.innerHTML = '';
+        this.renderBooks(this.model.setSearch());
     }
 
     // Render books
@@ -44,10 +56,6 @@
             $booksWrapper.innerHTML = "Books not found..."
         }
         // showButtonDelete();
-
-
-
-
 
 
 
@@ -164,38 +172,7 @@
         $modalOverlay.classList.toggle("closed");
     }
 
-    View.prototype.addBook = function (value) {
-        let book = {};
-        book.id = setId();
-        book.title = setFirstSymbolUpperCase(value.elements.title.value);
-        book.author = {
-            firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
-            lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
-        };
-        book.cost = value.elements.cost.value;
-        book.image_url = value.elements.image_url.value;
-        book.rating = 0;
-        book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
-            return elem.value;
-        });
-        book.createdAt = new Date().getTime();
-        book.updatedAt = new Date().getTime();
-        self.books.push(book);
-        self.$booksWrapper.innerHTML = '';
-        renderBooks(books);
-    }
 
-    View.prototype.setId = function () {
-        return +Date.now() + (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
-    }
-
-    View.prototype.isNumber = function (number) {
-        return !isNaN(parseFloat(number)) && isFinite(number);
-    }
-
-    View.prototype.setFirstSymbolUpperCase = function (stringValue) {
-        return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
-    }
 
     View.prototype.validateBook = function () {
         let $form = document.forms.book_add;
@@ -218,6 +195,48 @@
         } else {
             $errorMessage.classList.remove("hidden");
         }
+
+
+
+
+
+        function addBook(value) {
+            let book = {};
+            book.id = setId();
+            book.title = setFirstSymbolUpperCase(value.elements.title.value);
+            book.author = {
+                firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
+                lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
+            };
+            book.cost = value.elements.cost.value;
+            book.image_url = value.elements.image_url.value;
+            book.rating = 0;
+            book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
+                return elem.value;
+            });
+            book.createdAt = new Date().getTime();
+            book.updatedAt = new Date().getTime();
+            this.model.books.push(book);
+            self.$booksWrapper.innerHTML = '';
+            renderBooks(books);
+        }
+
+        function setId() {
+            return +Date.now() + (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
+        }
+
+        function isNumber(number) {
+            return !isNaN(parseFloat(number)) && isFinite(number);
+        }
+
+        function setFirstSymbolUpperCase(stringValue) {
+            return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
+        }
+
+
+
+
+
     }
 
     window.View = View;
