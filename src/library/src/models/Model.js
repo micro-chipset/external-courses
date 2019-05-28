@@ -1,7 +1,6 @@
 (function () {
     'use strict';
-    function Model(view) {
-        this.view = view;
+    function Model() {
         this.books = [];
         this.filterBooks = [];
     }
@@ -19,15 +18,13 @@
         }
     }
 
-    Model.prototype.setSearch = function (item) {
-        const value = this.view.searchInput.value.toLowerCase();
-        let searchBooks = self.filterBooks.filter(isSearch);
-        isSearch = (item.author.firstName.toLowerCase().indexOf(value) > -1
-            || item.author.lastName.toLowerCase().indexOf(value) > -1
-            || item.title.toLowerCase().indexOf(value) > -1);
-        return searchBooks;
+    Model.prototype.setSearch = function (value) {
+        return this.filterBooks.filter((item) =>
+            (item.author.firstName.toLowerCase().indexOf(value) > -1
+                || item.author.lastName.toLowerCase().indexOf(value) > -1
+                || item.title.toLowerCase().indexOf(value) > -1)
+        );
     }
-
 
     window.Model = Model;
 })();

@@ -39,9 +39,10 @@
         }
 
         function search() {
-            const $booksWrapper = document.querySelector('.books');
+            const value = $searchInput.value.toLowerCase();
             $booksWrapper.innerHTML = '';
-            self.renderBooks(model.setSearch());
+            // console.log(resSearch());
+            self.renderBooks(model.setSearch(value));
         }
     }
 

@@ -1,6 +1,6 @@
 function App() {
     
-    this.model = new Model(this.view);
+    this.model = new Model();
     this.view = new View(this.model);
     this.controller = new Controller(this.model, this.view);
 }
