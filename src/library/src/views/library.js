@@ -4,54 +4,46 @@
 
         this.model = model;
         var self = this;
-        const $filterTop = document.querySelector(".filter");
-        const $searchInput = document.querySelector("#search");
-        const $searchButton = document.querySelector("#search_button");
-        const $booksWrapper = document.querySelector('.books');
 
+        const $filterTop = document.querySelector(".filter");
+        const $filterTopItem = $filterTop.children;
+        const $searchInput = document.querySelector("#search");
+        const $booksWrapper = document.querySelector('.books');
         const $closeButton = document.querySelector("#close-button");
         const $openButton = document.querySelector(".button-book-add");
-        // const $form = document.querySelector(".book_add");
         const $pushBook = document.querySelector(".submit");
+        const $modal = document.querySelector("#modal");
+        const $modalOverlay = document.querySelector("#modal-overlay");
+        const $form = document.forms.book_add;
+        const $errorMessage = document.querySelector(".error_message");
 
-
-        $filterTop.addEventListener("click", setFilterActive);
+        $filterTop.addEventListener("click", filter);
         $searchInput.addEventListener("input", debounce(search, 1000));
         $openButton.addEventListener("click", openCloseModal);
         $closeButton.addEventListener("click", openCloseModal);
         $pushBook.addEventListener("click", validateBook);
 
-        function test(selectorFilterElemId) {
-            let filterTopItem = $filterTop.children;
-            for (let i = 0; i < filterTopItem.length; i++) {
-                filterTopItem[i].classList.remove("active");
+        function setFilterActive(selectorElemId) {
+            for (let i = 0; i < $filterTopItem.length; i++) {
+                $filterTopItem[i].classList.remove("active");
             }
-            selectorFilterElemId.classList.toggle("active");
+            selectorElemId.classList.toggle("active");
         }
-        function setFilterActive(event) {
-            // console.log(event);
+
+        function filter(event) {
             $searchInput.value = ""
-            const $filterTop = document.querySelector(".filter");
-            const $booksWrapper = document.querySelector('.books');
             let filterElemId = event.target.id;
-            console.log(event.target.id);
-            let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
-            test(selectorFilterElemId);
-            console.log(selectorFilterElemId);
+            const $selectorFilterElemId = document.querySelector(`#${filterElemId}`);
+            setFilterActive($selectorFilterElemId);
             $booksWrapper.innerHTML = '';
-            // console.log(self.model.setFilter(filterElemId));
-            // console.log(renderBooks);
             self.renderBooks(model.setFilter(filterElemId));
         }
 
         function search() {
             const value = $searchInput.value.toLowerCase();
             $booksWrapper.innerHTML = '';
-            // console.log(resSearch());
             self.renderBooks(model.setSearch(value));
         }
-
-
 
         function addBook(value) {
             let book = {};
@@ -61,7 +53,7 @@
                 firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
                 lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
             };
-            book.cost = value.elements.cost.value;
+            book.cost = +value.elements.cost.value;
             book.image_url = value.elements.image_url.value;
             book.rating = 0;
             book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
@@ -71,9 +63,8 @@
             book.updatedAt = new Date().getTime();
             model.books.push(book);
             $booksWrapper.innerHTML = '';
-            // let filterElemId = 'all_books';
-            let selectorFilterElemId = document.querySelector('#all_books');
-            test(selectorFilterElemId);
+            const $selectorDefaultElemId = document.querySelector('#all_books');
+            setFilterActive($selectorDefaultElemId);
             self.renderBooks(model.books);
         }
 
@@ -86,17 +77,11 @@
         }
 
         function openCloseModal() {
-            const $modal = document.querySelector("#modal");
-            const $modalOverlay = document.querySelector("#modal-overlay");
             $modal.classList.toggle("closed");
             $modalOverlay.classList.toggle("closed");
         }
 
-
-
         function validateBook() {
-            let $form = document.forms.book_add;
-            const $errorMessage = document.querySelector(".error_message");
             let isValidateData = $form.elements.title.value !== ""
                 && $form.elements.firstName.value !== ""
                 && $form.elements.lastName.value !== ""
@@ -115,83 +100,77 @@
                 $errorMessage.classList.remove("hidden");
             }
         }
-
-
     }
 
-    // Render books
     View.prototype.renderBooks = function (books) {
         const $booksWrapper = document.querySelector('.books');
         const $searchInput = document.querySelector("#search");
         const $searchButton = document.querySelector("#search_button");
+
         books.forEach(function (anotherBook) {
-
             let book = createBook(anotherBook);
-
-            const $searchInput = document.querySelector("#search");
-            const $searchButton = document.querySelector("#search_button");
             $booksWrapper.appendChild(book);
         });
+
+        showButtonDelete();
+
         if (!books.length) {
             $booksWrapper.innerHTML = "Books not found..."
         }
-        showButtonDelete();
-
-
-
 
         function createBook(anotherBook) {
-            let bookWrapper = document.createElement('article');
+            const $bookWrapper = document.createElement('article');
 
-            let bookImg = document.createElement('img');
-            bookImg.classList.add('book-img')
-            bookImg.src = anotherBook.image_url;
-            bookImg.alt = anotherBook.title;
-            bookWrapper.appendChild(bookImg);
+            const $bookImg = document.createElement('img');
+            $bookImg.classList.add('book-img')
+            $bookImg.src = anotherBook.image_url;
+            $bookImg.alt = anotherBook.title;
+            $bookWrapper.appendChild($bookImg);
 
-            let bookTitle = document.createElement('h2');
-            bookTitle.classList.add('book-title');
-            bookWrapper.appendChild(bookTitle);
+            const $bookTitle = document.createElement('h2');
+            $bookTitle.classList.add('book-title');
+            $bookWrapper.appendChild($bookTitle);
             let textTitle = document.createTextNode(anotherBook.title);
-            bookTitle.appendChild(textTitle);
+            $bookTitle.appendChild(textTitle);
 
-            let bookAuthor = document.createElement('p');
-            bookAuthor.classList.add('book-author');
-            bookWrapper.appendChild(bookAuthor);
+            const $bookAuthor = document.createElement('p');
+            $bookAuthor.classList.add('book-author');
+            $bookWrapper.appendChild($bookAuthor);
             let textAuthor = document.createTextNode(`by ${anotherBook.author.firstName} ${anotherBook.author.lastName}`);
-            bookAuthor.appendChild(textAuthor);
+            $bookAuthor.appendChild(textAuthor);
 
             let currentRating = anotherBook.rating;
             var rating = createRating(currentRating);
-            bookWrapper.appendChild(rating);
+            $bookWrapper.appendChild(rating);
 
-            return bookWrapper;
+            return $bookWrapper;
         }
+
         function createStar(stars, currentRating) {
             stars.classList.add('book-rating');
             for (let i = 1; i <= currentRating; i++) {
-                let star = document.createElement('i');
-                star.classList.add('fas');
-                star.classList.add('fa-star');
-                stars.appendChild(star);
+                const $star = document.createElement('i');
+                $star.classList.add('fas');
+                $star.classList.add('fa-star');
+                stars.appendChild($star);
             }
             let emptyStars = 5 - currentRating;
             for (let i = 1; i <= emptyStars; i++) {
-                let star = document.createElement('i');
-                star.classList.add('far');
-                star.classList.add('fa-star');
-                stars.appendChild(star);
+                const $star = document.createElement('i');
+                $star.classList.add('far');
+                $star.classList.add('fa-star');
+                stars.appendChild($star);
             }
         }
 
         function createRating(currentRating) {
-            let stars = document.createElement('div');
+            let $stars = document.createElement('div');
             let currentIndex;
-            createStar(stars, currentRating);
+            createStar($stars, currentRating);
             // Array all stars
-            let allItems = Array.from(stars.querySelectorAll('.fa-star'));
+            let allItems = Array.from($stars.querySelectorAll('.fa-star'));
             // Amount active star
-            let activeItems = stars.querySelectorAll('.fa-star.fas').length;
+            let activeItems = $stars.querySelectorAll('.fa-star.fas').length;
             // The function checks where clicked and changes classes
             let cStars = function (nowPos) {
                 // Remove fas and add far class from all elements.
@@ -206,7 +185,7 @@
                 }
             }
             // Hover
-            stars.addEventListener('mouseover', function (e) {
+            $stars.addEventListener('mouseover', function (e) {
                 // Selected element
                 let myTarget = e.target;
                 // Find the selected element in the array and put its index variable
@@ -214,7 +193,7 @@
                 cStars(currentIndex);
             });
 
-            stars.addEventListener('click', function (e) {
+            $stars.addEventListener('click', function (e) {
                 // Selected element
                 let myTarget = e.target;
                 // Find the selected element in the array and put its index variable
@@ -225,15 +204,16 @@
                 }
                 cStars(currentIndex);
                 // Change amount active star 
-                activeItems = stars.querySelectorAll('.book-rating .fa-star.fas').length;
+                activeItems = $stars.querySelectorAll('.book-rating .fa-star.fas').length;
             });
 
-            stars.addEventListener('mouseleave', function (e) {
+            $stars.addEventListener('mouseleave', function (e) {
                 cStars(+activeItems - 1);
             });
 
-            return stars;
+            return $stars;
         }
+
         function showButtonDelete() {
             if ($searchInput.value !== "") {
                 $searchButton.firstChild.classList.remove('fa-search')
@@ -245,8 +225,5 @@
         }
     }
 
-
-
     window.View = View;
-
 }());
