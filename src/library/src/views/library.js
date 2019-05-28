@@ -68,10 +68,6 @@
             self.renderBooks(model.books);
         }
 
-        function setId() {
-            return +Date.now() + (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
-        }
-
         function setFirstSymbolUpperCase(stringValue) {
             return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
         }
