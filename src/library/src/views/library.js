@@ -2,12 +2,13 @@
 (function () {
     'use strict';
     function View(model) {
-        var self = this;
+
         this.model = model;
+        var self = this;
         const $filterTop = document.querySelector(".filter");
         const $searchInput = document.querySelector("#search");
         const $searchButton = document.querySelector("#search_button");
-
+        const $booksWrapper = document.querySelector('.books');
 
         const $closeButton = document.querySelector("#close-button");
         const $openButton = document.querySelector(".button-book-add");
@@ -15,39 +16,42 @@
         const $pushBook = document.querySelector(".submit");
 
 
-        $filterTop.addEventListener("click", self.setFilterActive);
-        $searchInput.addEventListener("input", debounce(self.search, 1000));
+        $filterTop.addEventListener("click", setFilterActive);
+        $searchInput.addEventListener("input", debounce(search, 1000));
         $openButton.addEventListener("click", self.openCloseModal);
         $closeButton.addEventListener("click", self.openCloseModal);
         $pushBook.addEventListener("click", self.validateBook);
-    }
 
-    View.prototype.setFilterActive = function (event) {
-        const $filterTop = document.querySelector(".filter");
-        const $booksWrapper = document.querySelector('.books');
-        let filterElemId = event.target.id;
-        let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
-        let filterTopItem = $filterTop.children;
-        for (let i = 0; i < filterTopItem.length; i++) {
-            filterTopItem[i].classList.remove("active");
+        function setFilterActive(event) {
+            const $filterTop = document.querySelector(".filter");
+            const $booksWrapper = document.querySelector('.books');
+            let filterElemId = event.target.id;
+            let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
+            let filterTopItem = $filterTop.children;
+            for (let i = 0; i < filterTopItem.length; i++) {
+                filterTopItem[i].classList.remove("active");
+            }
+            selectorFilterElemId.classList.toggle("active");
+            $booksWrapper.innerHTML = '';
+            // console.log(self.model.setFilter(filterElemId));
+            // console.log(renderBooks);
+            self.renderBooks(model.setFilter(filterElemId));
         }
-        selectorFilterElemId.classList.toggle("active");
-        $booksWrapper.innerHTML = '';
-        this.renderBooks(this.model.setFilter(filterElemId));
-    }
 
-    View.prototype.search = function () {
-        const $booksWrapper = document.querySelector('.books');
-        $booksWrapper.innerHTML = '';
-        this.renderBooks(this.model.setSearch());
+        function search() {
+            const $booksWrapper = document.querySelector('.books');
+            $booksWrapper.innerHTML = '';
+            self.renderBooks(model.setSearch());
+        }
     }
 
     // Render books
     View.prototype.renderBooks = function (books) {
+        const $booksWrapper = document.querySelector('.books');
         books.forEach(function (anotherBook) {
 
             let book = createBook(anotherBook);
-            const $booksWrapper = document.querySelector('.books');
+
             const $searchInput = document.querySelector("#search");
             const $searchButton = document.querySelector("#search_button");
             $booksWrapper.appendChild(book);
