@@ -1,4 +1,3 @@
-
 (function () {
     'use strict';
     function View(model) {
@@ -22,17 +21,23 @@
         $closeButton.addEventListener("click", openCloseModal);
         $pushBook.addEventListener("click", validateBook);
 
-        function setFilterActive(event) {
-            $searchInput.value = ""
-            const $filterTop = document.querySelector(".filter");
-            const $booksWrapper = document.querySelector('.books');
-            let filterElemId = event.target.id;
-            let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
+        function test(selectorFilterElemId) {
             let filterTopItem = $filterTop.children;
             for (let i = 0; i < filterTopItem.length; i++) {
                 filterTopItem[i].classList.remove("active");
             }
             selectorFilterElemId.classList.toggle("active");
+        }
+        function setFilterActive(event) {
+            // console.log(event);
+            $searchInput.value = ""
+            const $filterTop = document.querySelector(".filter");
+            const $booksWrapper = document.querySelector('.books');
+            let filterElemId = event.target.id;
+            console.log(event.target.id);
+            let selectorFilterElemId = document.querySelector(`#${filterElemId}`);
+            test(selectorFilterElemId);
+            console.log(selectorFilterElemId);
             $booksWrapper.innerHTML = '';
             // console.log(self.model.setFilter(filterElemId));
             // console.log(renderBooks);
@@ -66,6 +71,9 @@
             book.updatedAt = new Date().getTime();
             model.books.push(book);
             $booksWrapper.innerHTML = '';
+            // let filterElemId = 'all_books';
+            let selectorFilterElemId = document.querySelector('#all_books');
+            test(selectorFilterElemId);
             self.renderBooks(model.books);
         }
 
@@ -77,16 +85,16 @@
             return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
         }
 
-        function openCloseModal   () {
+        function openCloseModal() {
             const $modal = document.querySelector("#modal");
             const $modalOverlay = document.querySelector("#modal-overlay");
             $modal.classList.toggle("closed");
             $modalOverlay.classList.toggle("closed");
         }
-    
-    
-    
-        function validateBook   () {
+
+
+
+        function validateBook() {
             let $form = document.forms.book_add;
             const $errorMessage = document.querySelector(".error_message");
             let isValidateData = $form.elements.title.value !== ""
@@ -94,7 +102,7 @@
                 && $form.elements.lastName.value !== ""
                 && $form.elements.cost.value !== ""
                 && (+$form.elements.cost.value) >= 0;
-    
+
             if (isValidateData) {
                 $errorMessage.classList.add("hidden");
                 addBook($form);
