@@ -32,7 +32,7 @@
         }
 
         function filter(event) {
-            $searchInput.value = ""
+            // $searchInput.value = ""
             let filterElemId = event.target.id;
             const $selectorFilterElemId = document.querySelector(`#${filterElemId}`);
             setFilterActive($selectorFilterElemId);
