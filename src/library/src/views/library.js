@@ -23,6 +23,7 @@
         $pushBook.addEventListener("click", self.validateBook);
 
         function setFilterActive(event) {
+            $searchInput.value = ""
             const $filterTop = document.querySelector(".filter");
             const $booksWrapper = document.querySelector('.books');
             let filterElemId = event.target.id;
@@ -49,6 +50,8 @@
     // Render books
     View.prototype.renderBooks = function (books) {
         const $booksWrapper = document.querySelector('.books');
+        const $searchInput = document.querySelector("#search");
+        const $searchButton = document.querySelector("#search_button");
         books.forEach(function (anotherBook) {
 
             let book = createBook(anotherBook);
@@ -60,7 +63,7 @@
         if (!books.length) {
             $booksWrapper.innerHTML = "Books not found..."
         }
-        // showButtonDelete();
+        showButtonDelete();
 
 
 
