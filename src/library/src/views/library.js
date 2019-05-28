@@ -8,6 +8,7 @@
         const $filterTop = document.querySelector(".filter");
         const $filterTopItem = $filterTop.children;
         const $searchInput = document.querySelector("#search");
+        const $searchButton = document.querySelector("#search_button");
         const $booksWrapper = document.querySelector('.books');
         const $closeButton = document.querySelector("#close-button");
         const $openButton = document.querySelector(".button-book-add");
@@ -96,53 +97,8 @@
                 $errorMessage.classList.remove("hidden");
             }
         }
-    }
 
-    View.prototype.renderBooks = function (books) {
-        const $booksWrapper = document.querySelector('.books');
-        const $searchInput = document.querySelector("#search");
-        const $searchButton = document.querySelector("#search_button");
-
-        books.forEach(function (anotherBook) {
-            let book = createBook(anotherBook);
-            $booksWrapper.appendChild(book);
-        });
-
-        showButtonDelete();
-
-        if (!books.length) {
-            $booksWrapper.innerHTML = "Books not found..."
-        }
-
-        function createBook(anotherBook) {
-            const $bookWrapper = document.createElement('article');
-
-            const $bookImg = document.createElement('img');
-            $bookImg.classList.add('book-img')
-            $bookImg.src = anotherBook.image_url;
-            $bookImg.alt = anotherBook.title;
-            $bookWrapper.appendChild($bookImg);
-
-            const $bookTitle = document.createElement('h2');
-            $bookTitle.classList.add('book-title');
-            $bookWrapper.appendChild($bookTitle);
-            let textTitle = document.createTextNode(anotherBook.title);
-            $bookTitle.appendChild(textTitle);
-
-            const $bookAuthor = document.createElement('p');
-            $bookAuthor.classList.add('book-author');
-            $bookWrapper.appendChild($bookAuthor);
-            let textAuthor = document.createTextNode(`by ${anotherBook.author.firstName} ${anotherBook.author.lastName}`);
-            $bookAuthor.appendChild(textAuthor);
-
-            let currentRating = anotherBook.rating;
-            var rating = createRating(currentRating);
-            $bookWrapper.appendChild(rating);
-
-            return $bookWrapper;
-        }
-
-        function createStar(stars, currentRating) {
+        function _createStar   (stars, currentRating) {
             stars.classList.add('book-rating');
             for (let i = 1; i <= currentRating; i++) {
                 const $star = document.createElement('i');
@@ -159,10 +115,10 @@
             }
         }
 
-        function createRating(currentRating) {
+        function _createRating (currentRating) {
             let $stars = document.createElement('div');
             let currentIndex;
-            createStar($stars, currentRating);
+            _createStar($stars, currentRating);
             // Array all stars
             let allItems = Array.from($stars.querySelectorAll('.fa-star'));
             // Amount active star
@@ -210,7 +166,7 @@
             return $stars;
         }
 
-        function showButtonDelete() {
+        this.showButtonDelete = function () {
             if ($searchInput.value !== "") {
                 $searchButton.firstChild.classList.remove('fa-search')
                 $searchButton.firstChild.classList.add('fa-times')
@@ -219,7 +175,51 @@
                 $searchButton.firstChild.classList.add('fa-search')
             }
         }
+
+        this.createBook = function (anotherBook) {
+            const $bookWrapper = document.createElement('article');
+
+            const $bookImg = document.createElement('img');
+            $bookImg.classList.add('book-img')
+            $bookImg.src = anotherBook.image_url;
+            $bookImg.alt = anotherBook.title;
+            $bookWrapper.appendChild($bookImg);
+
+            const $bookTitle = document.createElement('h2');
+            $bookTitle.classList.add('book-title');
+            $bookWrapper.appendChild($bookTitle);
+            let textTitle = document.createTextNode(anotherBook.title);
+            $bookTitle.appendChild(textTitle);
+
+            const $bookAuthor = document.createElement('p');
+            $bookAuthor.classList.add('book-author');
+            $bookWrapper.appendChild($bookAuthor);
+            let textAuthor = document.createTextNode(`by ${anotherBook.author.firstName} ${anotherBook.author.lastName}`);
+            $bookAuthor.appendChild(textAuthor);
+
+            let currentRating = anotherBook.rating;
+            var rating = _createRating(currentRating);
+            $bookWrapper.appendChild(rating);
+
+            return $bookWrapper;
+        }
     }
 
+    View.prototype.renderBooks = function (books) {
+        var self = this;
+        const $booksWrapper = document.querySelector('.books');
+
+        books.forEach(function (anotherBook) {
+            let book = self.createBook(anotherBook);
+            $booksWrapper.appendChild(book);
+        });
+
+        this.showButtonDelete();
+
+        if (!books.length) {
+            $booksWrapper.innerHTML = "Books not found..."
+        }
+    }
+    
     window.View = View;
 }());
