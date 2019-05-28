@@ -18,9 +18,9 @@
 
         $filterTop.addEventListener("click", setFilterActive);
         $searchInput.addEventListener("input", debounce(search, 1000));
-        $openButton.addEventListener("click", self.openCloseModal);
-        $closeButton.addEventListener("click", self.openCloseModal);
-        $pushBook.addEventListener("click", self.validateBook);
+        $openButton.addEventListener("click", openCloseModal);
+        $closeButton.addEventListener("click", openCloseModal);
+        $pushBook.addEventListener("click", validateBook);
 
         function setFilterActive(event) {
             $searchInput.value = ""
@@ -45,6 +45,70 @@
             // console.log(resSearch());
             self.renderBooks(model.setSearch(value));
         }
+
+
+
+        function addBook(value) {
+            let book = {};
+            book.id = setId();
+            book.title = setFirstSymbolUpperCase(value.elements.title.value);
+            book.author = {
+                firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
+                lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
+            };
+            book.cost = value.elements.cost.value;
+            book.image_url = value.elements.image_url.value;
+            book.rating = 0;
+            book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
+                return elem.value;
+            });
+            book.createdAt = new Date().getTime();
+            book.updatedAt = new Date().getTime();
+            model.books.push(book);
+            $booksWrapper.innerHTML = '';
+            self.renderBooks(model.books);
+        }
+
+        function setId() {
+            return +Date.now() + (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
+        }
+
+        function setFirstSymbolUpperCase(stringValue) {
+            return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
+        }
+
+        function openCloseModal   () {
+            const $modal = document.querySelector("#modal");
+            const $modalOverlay = document.querySelector("#modal-overlay");
+            $modal.classList.toggle("closed");
+            $modalOverlay.classList.toggle("closed");
+        }
+    
+    
+    
+        function validateBook   () {
+            let $form = document.forms.book_add;
+            const $errorMessage = document.querySelector(".error_message");
+            let isValidateData = $form.elements.title.value !== ""
+                && $form.elements.firstName.value !== ""
+                && $form.elements.lastName.value !== ""
+                && $form.elements.cost.value !== ""
+                && (+$form.elements.cost.value) >= 0;
+    
+            if (isValidateData) {
+                $errorMessage.classList.add("hidden");
+                addBook($form);
+                $form.elements.title.value = "";
+                $form.elements.firstName.value = "";
+                $form.elements.lastName.value = "";
+                $form.elements.cost.value = "";
+                openCloseModal();
+            } else {
+                $errorMessage.classList.remove("hidden");
+            }
+        }
+
+
     }
 
     // Render books
@@ -173,79 +237,7 @@
         }
     }
 
-    View.prototype.openCloseModal = function () {
-        const $modal = document.querySelector("#modal");
-        const $modalOverlay = document.querySelector("#modal-overlay");
-        $modal.classList.toggle("closed");
-        $modalOverlay.classList.toggle("closed");
-    }
 
-
-
-    View.prototype.validateBook = function () {
-        let $form = document.forms.book_add;
-        const $errorMessage = document.querySelector(".error_message");
-        let isValidateData = $form.elements.title.value !== ""
-            && $form.elements.firstName.value !== ""
-            && $form.elements.lastName.value !== ""
-            && $form.elements.cost.value !== ""
-            && (+$form.elements.cost.value)
-            && (+$form.elements.cost.value) >= 0;
-
-        if (isValidateData) {
-            $errorMessage.classList.add("hidden");
-            addBook($form);
-            $form.elements.title.value = "";
-            $form.elements.firstName.value = "";
-            $form.elements.lastName.value = "";
-            $form.elements.cost.value = "";
-            openCloseModal();
-        } else {
-            $errorMessage.classList.remove("hidden");
-        }
-
-
-
-
-
-        function addBook(value) {
-            let book = {};
-            book.id = setId();
-            book.title = setFirstSymbolUpperCase(value.elements.title.value);
-            book.author = {
-                firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
-                lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
-            };
-            book.cost = value.elements.cost.value;
-            book.image_url = value.elements.image_url.value;
-            book.rating = 0;
-            book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
-                return elem.value;
-            });
-            book.createdAt = new Date().getTime();
-            book.updatedAt = new Date().getTime();
-            this.model.books.push(book);
-            self.$booksWrapper.innerHTML = '';
-            renderBooks(books);
-        }
-
-        function setId() {
-            return +Date.now() + (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
-        }
-
-        function isNumber(number) {
-            return !isNaN(parseFloat(number)) && isFinite(number);
-        }
-
-        function setFirstSymbolUpperCase(stringValue) {
-            return stringValue.charAt(0).toUpperCase() + stringValue.slice(1);
-        }
-
-
-
-
-
-    }
 
     window.View = View;
 
