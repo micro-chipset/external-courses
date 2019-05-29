@@ -166,7 +166,7 @@
             return $stars;
         }
 
-        this.showButtonDelete = function () {
+        this._showButtonDelete = function () {
             if ($searchInput.value !== "") {
                 $searchButton.firstChild.classList.remove('fa-search')
                 $searchButton.firstChild.classList.add('fa-times')
@@ -176,7 +176,7 @@
             }
         }
 
-        this.createBook = function (anotherBook) {
+        this._createBook = function (anotherBook) {
             const $bookWrapper = document.createElement('article');
 
             const $bookImg = document.createElement('img');
