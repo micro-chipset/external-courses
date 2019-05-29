@@ -209,11 +209,11 @@
         const $booksWrapper = document.querySelector('.books');
 
         books.forEach((anotherBook) => {
-            let book = this.createBook(anotherBook);
+            let book = this._createBook(anotherBook);
             $booksWrapper.appendChild(book);
         });
 
-        this.showButtonDelete();
+        this._showButtonDelete();
 
         if (!books.length) {
             $booksWrapper.innerHTML = "Books not found..."
