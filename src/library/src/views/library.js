@@ -206,11 +206,10 @@
     }
 
     View.prototype.renderBooks = function (books) {
-        var self = this;
         const $booksWrapper = document.querySelector('.books');
 
-        books.forEach(function (anotherBook) {
-            let book = self.createBook(anotherBook);
+        books.forEach((anotherBook) => {
+            let book = this.createBook(anotherBook);
             $booksWrapper.appendChild(book);
         });
 
