@@ -4,14 +4,16 @@
         this.books = [];
         this.state = {
             filteredBooksArray: '',
-            isFilter: false
+            searchBooksArray: '',
+            isFilter: false,
+            isSearch: false,
         };
     }
 
     Model.prototype.setFilter = function (id) {
         let filterBooks = this.books;
-        if (this.state.isFilter && this.state.filteredBooksArray.length !== 0) {
-            filterBooks = this.state.filteredBooksArray;
+        if (this.state.isSearch) {
+            filterBooks = this.state.searchBooksArray;
         }
         switch (id) {
             case 'most_recent':
@@ -30,19 +32,17 @@
     }
 
     Model.prototype.setSearch = function (value) {
-        let filterBooks;
-        if (!this.state.isFilter || value.length === 0) {
-            filterBooks = this.books;
-        } else {
-            filterBooks = this.state.filteredBooksArray;
+        let searchBooks = this.books;
+        if (this.state.isFilter && value.length !== 0) {
+            searchBooks = this.state.filteredBooksArray;
         }
-        this.state.isFilter = true;
-        this.state.filteredBooksArray = filterBooks.filter((item) =>
+        this.state.isSearch = true;
+        this.state.searchBooksArray = searchBooks.filter((item) =>
             (item.author.firstName.toLowerCase().indexOf(value) > -1
                 || item.author.lastName.toLowerCase().indexOf(value) > -1
                 || item.title.toLowerCase().indexOf(value) > -1)
         );
-        return this.state.filteredBooksArray;
+        return this.state.searchBooksArray;
     }
 
     window.Model = Model;

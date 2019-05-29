@@ -7,15 +7,15 @@
 
         const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
         callApi(urlBooks, function (err, data) {
-            saveBooks(data, function (filtereBooks) {
-                self.view.renderBooks(filtereBooks)
+            saveBooks(data, function (books) {
+                self.view.renderBooks(books)
             })
         });
 
         function saveBooks(receivedBooks) {
             self.model.books = receivedBooks;
-            self.model.filterBooks = self.model.books.sort((a, b) => a.id - b.id);
-            self.view.renderBooks(self.model.filterBooks);
+            self.model.books = self.model.books.sort((a, b) => a.id - b.id);
+            self.view.renderBooks(self.model.books);
         }
     }
 
