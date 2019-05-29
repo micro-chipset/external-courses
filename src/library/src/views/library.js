@@ -1,9 +1,10 @@
 (function () {
     'use strict';
-    function View(model) {
+    function View(controller) {
 
-        this.model = model;
+        this.controller = controller;
         var self = this;
+        this.newBook = {};
 
         const $filterTop = document.querySelector(".filter");
         const $filterTopItem = $filterTop.children;
@@ -37,36 +38,35 @@
             const $selectorFilterElemId = document.querySelector(`#${filterElemId}`);
             setFilterActive($selectorFilterElemId);
             $booksWrapper.innerHTML = '';
-            self.renderBooks(model.setFilter(filterElemId));
+            self.renderBooks(controller.setFilter(filterElemId));
         }
 
         function search() {
             const value = $searchInput.value.toLowerCase();
             $booksWrapper.innerHTML = '';
-            self.renderBooks(model.setSearch(value));
+            self.renderBooks(controller.setSearch(value));
         }
 
         function addBook(value) {
-            let book = {};
-            book.id = setId();
-            book.title = setFirstSymbolUpperCase(value.elements.title.value);
-            book.author = {
+            self.newBook.id = setId();
+            self.newBook.title = setFirstSymbolUpperCase(value.elements.title.value);
+            self.newBook.author = {
                 firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
                 lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
             };
-            book.cost = +value.elements.cost.value;
-            book.image_url = value.elements.image_url.value;
-            book.rating = 0;
-            book.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
+            self.newBook.cost = +value.elements.cost.value;
+            self.newBook.image_url = value.elements.image_url.value;
+            self.newBook.rating = 0;
+            self.newBook.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
                 return elem.value;
             });
-            book.createdAt = new Date().getTime();
-            book.updatedAt = new Date().getTime();
-            model.books.push(book);
+            self.newBook.createdAt = new Date().getTime();
+            self.newBook.updatedAt = new Date().getTime();
+            controller.addBook();
             $booksWrapper.innerHTML = '';
             const $selectorDefaultElemId = document.querySelector('#all_books');
             setFilterActive($selectorDefaultElemId);
-            self.renderBooks(model.books);
+            self.renderBooks(controller.getBooks());
         }
 
         function setFirstSymbolUpperCase(stringValue) {

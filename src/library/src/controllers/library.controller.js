@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    function Controller(model, view) {
-        this.model = model;
-        this.view = view;
+    function Controller() {
+        this.model = new Model();
+        this.view = new View(this);
         var self = this;
 
         const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
@@ -16,9 +16,24 @@
             self.model.books = receivedBooks;
             self.model.filterBooks = self.model.books.sort((a, b) => a.id - b.id);
             self.view.renderBooks(self.model.filterBooks);
-            // cb(this.filterBooks);
         }
     }
-    
+
+    Controller.prototype.setFilter = function(id){
+        return this.model.setFilter(id);
+    };
+
+    Controller.prototype.setSearch = function(value){
+        return this.model.setSearch(value);
+    };
+
+    Controller.prototype.addBook = function(){
+        this.model.books.push(this.view.newBook);
+    };
+
+    Controller.prototype.getBooks = function () {
+        return this.model.books;
+    };
+
     window.Controller = Controller;
 })();
