@@ -6,13 +6,21 @@
         this.filter = '';
     }
 
-    Model.prototype.getFilter = function (id) {
+    Model.prototype.filterBooks = function (id) {
         let filterBooks = this.books;
         this.filter = id;
-        if (this.search.length !== 0) {
-            filterBooks = this.calculateSearch(filterBooks);
-        }
+        filterBooks = this.state(this.filter, this.search)
         return this.calculateFilter(filterBooks);
+    }
+
+    Model.prototype.state = function (filter, search) {
+        let books = this.books;
+        if (search.length !== 0) {
+            return this.calculateSearch(books);
+        }
+        if (filter.length !== 0) {
+            return  this.calculateFilter(books);
+        }
     }
 
     Model.prototype.calculateFilter = function (filterBooks) {
@@ -35,12 +43,10 @@
         );
     }
 
-    Model.prototype.getSearch = function (value) {
+    Model.prototype.searchBooks = function (value) {
         let searchBooks = this.books;
         this.search = value;
-        if (this.filter.length !== 0) {
-            searchBooks = this.calculateFilter(searchBooks);
-        }
+        searchBooks = this.state(this.filter, this.search);
         return this.calculateSearch(searchBooks);
     }
 

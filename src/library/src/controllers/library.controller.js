@@ -20,11 +20,11 @@
     }
 
     Controller.prototype.getFilter = function(id){
-        return this.model.getFilter(id);
+        return this.model.filterBooks(id);
     };
 
     Controller.prototype.getSearch = function(value){
-        return this.model.getSearch(value);
+        return this.model.searchBooks(value);
     };
 
     Controller.prototype.addBook = function(){
