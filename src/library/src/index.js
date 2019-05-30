@@ -1,5 +1,5 @@
 function App() {
-    this.controller = new Controller(this.model = new Model(), this.view = new View(this));
+    this.controller = new Controller();
 }
 
 var app = new App();

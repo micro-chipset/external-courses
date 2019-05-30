@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    function Controller(model , view) {
-        this.model = model;
-        this.view = view;
+    function Controller() {
+        this.model = new Model();
+        this.view = new View(this);
         var self = this;
 
         const urlBooks = 'https://rsu-library-api.herokuapp.com/books';
