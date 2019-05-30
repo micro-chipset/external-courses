@@ -37,13 +37,13 @@
             const $selectorFilterElemId = document.querySelector(`#${filterElemId}`);
             setFilterActive($selectorFilterElemId);
             $booksWrapper.innerHTML = '';
-            self.renderBooks(controller.setFilter(filterElemId));
+            self.renderBooks(controller.getFilter(filterElemId));
         }
 
         function search() {
             const value = $searchInput.value.toLowerCase();
             $booksWrapper.innerHTML = '';
-            self.renderBooks(controller.setSearch(value));
+            self.renderBooks(controller.getSearch(value));
         }
 
         function addBook(value) {

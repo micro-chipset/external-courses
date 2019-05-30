@@ -19,12 +19,12 @@
         }
     }
 
-    Controller.prototype.setFilter = function(id){
-        return this.model.setFilter(id);
+    Controller.prototype.getFilter = function(id){
+        return this.model.getFilter(id);
     };
 
-    Controller.prototype.setSearch = function(value){
-        return this.model.setSearch(value);
+    Controller.prototype.getSearch = function(value){
+        return this.model.getSearch(value);
     };
 
     Controller.prototype.addBook = function(){
