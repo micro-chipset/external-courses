@@ -4,7 +4,6 @@
 
         this.controller = controller;
         var self = this;
-        this.newBook = {};
 
         const $filterTop = document.querySelector(".filter");
         const $filterTopItem = $filterTop.children;
@@ -47,21 +46,22 @@
         }
 
         function addBook(value) {
-            self.newBook.id = setId();
-            self.newBook.title = setFirstSymbolUpperCase(value.elements.title.value);
-            self.newBook.author = {
+            let newBook = {};
+            newBook.id = setId();
+            newBook.title = setFirstSymbolUpperCase(value.elements.title.value);
+            newBook.author = {
                 firstName: setFirstSymbolUpperCase(value.elements.firstName.value),
                 lastName: setFirstSymbolUpperCase(value.elements.lastName.value)
             };
-            self.newBook.cost = +value.elements.cost.value;
-            self.newBook.image_url = value.elements.image_url.value;
-            self.newBook.rating = 0;
-            self.newBook.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
+            newBook.cost = +value.elements.cost.value;
+            newBook.image_url = value.elements.image_url.value;
+            newBook.rating = 0;
+            newBook.categories = Array.from(document.querySelectorAll("input.checkbox:checked")).map(function (elem) {
                 return elem.value;
             });
-            self.newBook.createdAt = new Date().getTime();
-            self.newBook.updatedAt = new Date().getTime();
-            controller.addBook();
+            newBook.createdAt = new Date().getTime();
+            newBook.updatedAt = new Date().getTime();
+            controller.addBook(newBook);
             $booksWrapper.innerHTML = '';
             const $selectorDefaultElemId = document.querySelector('#all_books');
             setFilterActive($selectorDefaultElemId);

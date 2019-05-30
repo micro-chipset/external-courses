@@ -27,8 +27,8 @@
         return this.model.searchBooks(value);
     };
 
-    Controller.prototype.addBook = function(){
-        this.model.books.push(this.view.newBook);
+    Controller.prototype.addBook = function(newBook){
+        this.model.books.push(newBook);
     };
 
     Controller.prototype.getBooks = function () {
