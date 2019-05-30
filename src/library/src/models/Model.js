@@ -9,16 +9,16 @@
     Model.prototype.filterBooks = function (id) {
         let filterBooks = this.books;
         this.filter = id;
-        filterBooks = this.checkFiltered(this.filter, this.search)
+        filterBooks = this.checkFiltered()
         return this.calculateFilter(filterBooks);
     }
 
-    Model.prototype.checkFiltered = function (filter, search) {
+    Model.prototype.checkFiltered = function () {
         let books = this.books;
-        if (search.length !== 0) {
+        if (this.search.length !== 0) {
             books = this.calculateSearch(books);
         }
-        if (filter.length !== 0) {
+        if (this.filter.length !== 0) {
             books = this.calculateFilter(books);
         }
         return books;
@@ -47,7 +47,7 @@
     Model.prototype.searchBooks = function (value) {
         let searchBooks = this.books;
         this.search = value;
-        searchBooks = this.checkFiltered(this.filter, this.search);
+        searchBooks = this.checkFiltered();
         return this.calculateSearch(searchBooks);
     }
 
