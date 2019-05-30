@@ -7,10 +7,10 @@
     }
 
     Model.prototype.filterBooks = function (id) {
-        let filterBooks = this.books;
+        // let filterBooks = this.books;
         this.filter = id;
-        filterBooks = this.checkFiltered()
-        return this.calculateFilter(filterBooks);
+        // filterBooks = this.checkFiltered()
+        return this.calculateFilter(this.checkFiltered());
     }
 
     Model.prototype.checkFiltered = function () {
@@ -45,10 +45,10 @@
     }
 
     Model.prototype.searchBooks = function (value) {
-        let searchBooks = this.books;
+        // let searchBooks = this.books;
         this.search = value;
-        searchBooks = this.checkFiltered();
-        return this.calculateSearch(searchBooks);
+        // searchBooks = this.checkFiltered();
+        return this.calculateSearch(this.checkFiltered());
     }
 
     window.Model = Model;
