@@ -8,7 +8,7 @@
 
     Model.prototype.filterBooks = function (id) {
         this.filter = id;
-        return this.calculateFilter(this.checkFiltered());
+        return this.checkFiltered();
     }
 
     Model.prototype.checkFiltered = function () {
@@ -44,7 +44,7 @@
 
     Model.prototype.searchBooks = function (value) {
         this.search = value;
-        return this.calculateSearch(this.checkFiltered());
+        return this.checkFiltered();
     }
 
     window.Model = Model;
